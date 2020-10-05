@@ -29,14 +29,12 @@ GLUCOSE_fuels = pd.read_excel('GLUCOSE_configuration.xlsx', sheet_name='Fuels')
 #     level[j]= [f.Fuel.unique()]
 
 GLUCOSE_years = pd.read_excel('GLUCOSE_configuration.xlsx', sheet_name='Years')
-
-GLUCOSEdata_all = pd.read_csv('ProductionByTechnologyAnnual.csv')
+GLUCOSEdata_all = pd.read_csv('/Users/agnese/Documents/KTH-Work/KTH-dESA:GLUCOSE_GitHub/GLUCOSE/results/Baseline/results_otoole/ProductionByTechnologyAnnual.csv')
 GLUCOSEdata_PBTA = GLUCOSEdata_all[GLUCOSEdata_all['YEAR']<2051]
-
-GLUCOSEdata_all = pd.read_csv('UseByTechnology.csv')
+GLUCOSEdata_all = pd.read_csv('/Users/agnese/Documents/KTH-Work/KTH-dESA:GLUCOSE_GitHub/GLUCOSE/results/Baseline/results_otoole/UseByTechnology.csv')
 GLUCOSEdata_UBT = GLUCOSEdata_all[GLUCOSEdata_all['YEAR']<2051]
 
-GLUCOSEdata_all = pd.read_csv('TotalCapacityAnnual.csv')
+GLUCOSEdata_all = pd.read_csv('/Users/agnese/Documents/KTH-Work/KTH-dESA:GLUCOSE_GitHub/GLUCOSE/results/Baseline/results_otoole/TotalCapacityAnnual.csv')
 GLUCOSEdata_TCA = GLUCOSEdata_all[GLUCOSEdata_all['YEAR']<2051]
 
 #%%
@@ -114,18 +112,39 @@ for i in TCA_cat:
 
 PrimaryLevel = {}
 fuel1=GLUCOSE_fuels.groupby(['Level']).get_group('primary')
-for j in fuel1.Category.unique():
-    fuel2 = fuel1.groupby(['Category']).get_group(j)
-    PrimaryLevel[j]= [fuel2.Fuel.unique()]
+for j in fuel1.EnergyFuel.unique():
+    fuel2 = fuel1.groupby(['EnergyFuel']).get_group(j)
+    PrimaryLevel[j]= [fuel2.Commodity.unique()]
 
+SecondaryLevel = {}
+fuel3=GLUCOSE_fuels.groupby(['Level']).get_group('secondary')
+for k in fuel3.EnergyFuel.unique():
+    fuel4 = fuel3.groupby(['EnergyFuel']).get_group(k)
+    SecondaryLevel[k]= [fuel4.Commodity.unique()]
+
+Renewables = {}
+ren = GLUCOSE_techs.groupby(['EnergyType']).get_group('renewable')
+for x in ren.InputFuel.unique():
+    ren2 = ren.groupby(['InputFuel']).get_group(x)
+    Renewables[x]=[ren2.Technology.unique()]
+#%%
 PBTA = {}
 for i in PrimaryLevel:
     if i == 'biomass':
         data = GLUCOSEdata_UBT[GLUCOSEdata_UBT['FUEL'].isin(PrimaryLevel[i][0])]
         PBTA[i] = results_forPlotting(data, i, 'timeslice')
-    else:    
+    if i != 'biomass':    
         data = GLUCOSEdata_PBTA[GLUCOSEdata_PBTA['FUEL'].isin(PrimaryLevel[i][0])]
         PBTA[i] = results_forPlotting(data, i, 'fuel')
+for k in SecondaryLevel:
+    if k == 'electricity' or k == 'heat':
+        data = GLUCOSEdata_PBTA[GLUCOSEdata_PBTA['FUEL'].isin(SecondaryLevel[k][0])]    
+        for j in Renewables:
+            data1 = data[data['TECHNOLOGY'].isin(Renewables[j][0])] 
+            PBTA[j] = results_forPlotting(data1, j, 'fuel')
+
+b=PBTA['biomass']
+s=PBTA['solar']
 
 # for Graph
 #
