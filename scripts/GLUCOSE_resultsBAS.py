@@ -174,15 +174,22 @@ b=PBTA['biomass']
 s=PBTA['solar']
 g=PBTA['geothermal']
 
-# for Graph
-#
-# x = GLUCOSE_years
-# y=[]
-# labels=[]
-# for i in PBTA:
-#     data = PBTA[i]
-#     y.append(data.VALUE)
-#     labels.append(i)
+#for Graph
+
+x = GLUCOSE_years
+y=[]
+labels=[]
+for i in PBTA:
+    data = PBTA[i]
+    y.append(data.VALUE)
+    
+    labels.append(i)
+
+
+plt.stackplot(x,y, labels)
+plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.show()
+
 
 #%%
 # PBTA_cat = {}
