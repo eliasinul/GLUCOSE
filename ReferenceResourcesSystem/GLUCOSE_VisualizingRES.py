@@ -10,7 +10,32 @@ from networkx.utils import open_file
 
 import pandas as pd
 import sys
+#%%
+# RES = nx.read_graphml('glucoseRES_modified,noDUMMY,v2_202009.graphml')
+# edg = pd.DataFrame(RES.edges(data=True))
+# edg1 = edg[2][4]
+# nds = pd.DataFrame(RES.nodes(data=True))
+# nds1=nds[1][4]
 
+# input_edg=pd.DataFrame(columns=edg.columns)
+# output_edg=pd.DataFrame(columns=edg.columns)
+# emission_edg=pd.DataFrame(columns=edg.columns)
+
+# i=0
+# for i in edg.index:
+#     info_edge=edg[2][i]
+#     if 'input_ratio' in info_edge:
+#         input_edg=input_edg.append(edg.iloc[[i]], ignore_index=True)
+#     if 'output_ratio' in info_edge:
+#         output_edg=output_edg.append(edg.iloc[[i]], ignore_index=True)    
+#     if 'emission_ratio' in info_edge:
+#         emission_edg=emission_edg.append(edg.iloc[[i]], ignore_index=True)
+#     i=i+1
+# input_edg1 = input_edg[2][4]
+# output_edg1=output_edg[2][4]
+# emission_edg1  = emission_edg[2][7]
+
+#%%
 def main(filepath):
 
     RES = nx.read_graphml(filepath)
@@ -34,10 +59,21 @@ def main(filepath):
 
     # Update the labels of nodes 
     for edge in input_edges:
-        fuel = edge[2]['label']
+        fuel_in = edge[2]['label']
         from_node = edge[0]
-        RES.nodes[from_node]['label'] = fuel
+        RES.nodes[from_node]['label'] = fuel_in
 
+    for edge in output_edges:
+        from_node = edge[0]
+        to_node = edge[1]
+        fuel_out = RES.nodes[to_node]['label']
+        RES.edges[0,1]['label'] = fuel_out
+    
+    for edge in emission_edges:
+        from_node = edge[0]
+        to_node = edge[1]
+        emission = RES.nodes[to_node]['label']
+        RES.edges[0,1]['label'] = emission
 
 
     # k=0    
@@ -106,3 +142,4 @@ def main(filepath):
 # %%
 if __name__ == "__main__":
     main(sys.argv[1])
+# %%
