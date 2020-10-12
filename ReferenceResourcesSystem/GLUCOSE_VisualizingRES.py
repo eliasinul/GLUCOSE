@@ -5,10 +5,11 @@ Spyder Editor
 This is a temporary script file.
 """
 #%%
+
 import networkx as nx
 from networkx.utils import open_file
 
-import pandas as pd
+#import pandas as pd
 import sys
 
 def main(filepath):
@@ -42,13 +43,13 @@ def main(filepath):
         from_node = edge[0]
         to_node = edge[1]
         fuel_out = RES.nodes[to_node]['label']
-        RES.edges[0,1]['label'] = fuel_out
+        RES.edges[from_node,to_node]['label'] = fuel_out
     
     for edge in emission_edges:
         from_node = edge[0]
         to_node = edge[1]
         emission = RES.nodes[to_node]['label']
-        RES.edges[0,1]['label'] = emission
+        RES.edges[from_node,to_node]['label'] = emission
 
 
     # k=0    
