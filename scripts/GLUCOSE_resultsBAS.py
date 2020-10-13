@@ -9,27 +9,18 @@ import re
 import matplotlib.pyplot as plt 
 import seaborn as sns
 
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import plotly.express as px
+
 GLUCOSE_techs = pd.read_excel('GLUCOSE_configuration.xlsx', sheet_name='Technologies')
 EnergyTechs = GLUCOSE_techs.groupby(['Module']).get_group('energy')
-#TechGroups1 = GLUCOSE_techs.groupby(['InputFuel'])
-
-    
-    # if 'electricity, heat' in TechGroups.groupby(['OutputFuel']).groups.keys():
-    #     eh = GLUCOSE_techs.groupby(['InputFuel', 'OutputFuel']).get_group(i, 'electricity, heat')
-    #     cat[i]= [e.Technology.unique()]
-    #     #c = TechGroups.get_group(i)
-    #d=e.append(eh)
-    #cat[i]= [e.Technology.unique()]
 
 #%%
 GLUCOSE_fuels = pd.read_excel('GLUCOSE_configuration.xlsx', sheet_name='Fuels')
-# FuelGroups = GLUCOSE_fuels.groupby('Level')
-# level = {}
-# for j in GLUCOSE_fuels.Level.unique():
-#     f = FuelGroups.get_group(j)
-#     level[j]= [f.Fuel.unique()]
-
 GLUCOSE_years = pd.read_excel('GLUCOSE_configuration.xlsx', sheet_name='Years')
+
 GLUCOSEdata_all = pd.read_csv('/Users/agnese/Documents/KTH-Work/KTH-dESA:GLUCOSE_GitHub/GLUCOSE/results/Baseline/results_otoole/ProductionByTechnologyAnnual.csv')
 GLUCOSEdata_PBTA = GLUCOSEdata_all[GLUCOSEdata_all['YEAR']<2051]
 GLUCOSEdata_all = pd.read_csv('/Users/agnese/Documents/KTH-Work/KTH-dESA:GLUCOSE_GitHub/GLUCOSE/results/Baseline/results_otoole/UseByTechnology.csv')
@@ -155,7 +146,7 @@ for i in PrimaryLevel:
     if i == 'biomass':
         data = GLUCOSEdata_UBT[GLUCOSEdata_UBT['FUEL'].isin(PrimaryLevel[i][0])]
         PBTA[i] = results_forPlotting(data, i, 'timeslice')
-    if i != 'biomass':    
+    else:    
         data = GLUCOSEdata_PBTA[GLUCOSEdata_PBTA['FUEL'].isin(PrimaryLevel[i][0])]
         PBTA[i] = results_forPlotting(data, i, 'fuel')
 for k in SecondaryLevel:
@@ -174,63 +165,8 @@ b=PBTA['biomass']
 s=PBTA['solar']
 g=PBTA['geothermal']
 
-#for Graph
-
-x = GLUCOSE_years
-y=[]
-labels=[]
-for i in PBTA:
-    data = PBTA[i]
-    y.append(data.VALUE)
-    
-    labels.append(i)
-
-
-plt.stackplot(x,y, labels)
-plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-plt.show()
-
 
 #%%
-# PBTA_cat = {}
-# EnergyTechs = GLUCOSE_techs.groupby(['Module']).get_group('energy')
-# for i in EnergyTechs.InputFuel.unique():
-#     TechGroups = EnergyTechs.groupby(['InputFuel']).get_group(i)
-#     if 'import, production' in TechGroups.groupby(['OutputFuel']).groups.keys():
-#         data = EnergyTechs.groupby(['InputFuel', 'OutputFuel']).get_group((i, 'import, production'))
-#         PBTA_cat[i]= [data.Technology.unique()]
-# Renewables = ['hydro', 'solar', 'wind', 'geothermal', 'ocean']
-# for i in Renewables:
-#     data = EnergyTechs.groupby(['InputFuel']).get_group(i)
-#     PBTA_cat[i]= [data.Technology.unique()]
-#%%
-PBTA = {}
-PrimaryFuels = [GLUCOSE_fuels.groupby(['Level']).get_group('primary')]
-for j in PrimaryFuel:
-    data = GLUCOSEdata_PBTA[GLUCOSEdata_PBTA['FUEL']==j]
-    for 
-    if 'primary' in FuelLevels.groupby(['Level']).groups.keys():
-        data = GLUCOSEdata_PBTA[GLUCOSEdata_PBTA['FUEL'].isin(level[i][0])] 
-        PTBA[i] = results_forPlotting(data, i, 'fuel')
-
-#%%
-
-coalPE = GLUCOSEdata_PBTA[(GLUCOSEdata_PBTA['TECHNOLOGY']=='C1CO00I00') & (GLUCOSEdata_PBTA['FUEL']=='C1_P_HCO')]
-gasPE = GLUCOSEdata_PBTA[(GLUCOSEdata_PBTA['TECHNOLOGY']=='C1NG00I00') & (GLUCOSEdata_PBTA['FUEL']=='C1_P_GAS')]
-oilPE = GLUCOSEdata_PBTA[(GLUCOSEdata_PBTA['TECHNOLOGY']=='C1OI00I00') & (GLUCOSEdata_PBTA['FUEL']=='C1_R_OIL')]
-nuclearPE = GLUCOSEdata_PBTA[(GLUCOSEdata_PBTA['TECHNOLOGY']=='C1NU00I00') & (GLUCOSEdata_PBTA['FUEL']=='C1_P_NUC')]
-biomass_PE_all = GLUCOSEdata_UBT[((GLUCOSEdata_UBT['TECHNOLOGY']=='C1BMBRFH1') | (GLUCOSEdata_UBT['TECHNOLOGY']=='C1BMBRFN1') | (GLUCOSEdata_UBT['TECHNOLOGY']=='C1BMCHP00') | (GLUCOSEdata_UBT['TECHNOLOGY']=='C1BMHTF03') | (GLUCOSEdata_UBT['TECHNOLOGY']=='C1BMIGPCS') | (GLUCOSEdata_UBT['TECHNOLOGY']=='C1BMLP000') | (GLUCOSEdata_UBT['TECHNOLOGY']=='C1BMSCP00')) & (GLUCOSEdata_UBT['FUEL']=='C1_P_BIOW')]
-hydro_PE_all = GLUCOSEdata_PBTA[((GLUCOSEdata_PBTA['TECHNOLOGY']=='C1HYDMP00') | (GLUCOSEdata_PBTA['TECHNOLOGY']=='C1HYMIP00')) & (GLUCOSEdata_PBTA['FUEL']=='C1_S_ELC')]
-solar_PE_all = GLUCOSEdata_PBTA[((GLUCOSEdata_PBTA['TECHNOLOGY']=='C1SOC1P00')|(GLUCOSEdata_PBTA['TECHNOLOGY']=='C1SOV1P00')|(GLUCOSEdata_PBTA['TECHNOLOGY']=='C1SOV2P00')|(GLUCOSEdata_PBTA['TECHNOLOGY']=='C1SOTHF00')) & (GLUCOSEdata_PBTA['FUEL']=='C1_S_ELC')]
-wind_PE_all = GLUCOSEdata_PBTA[((GLUCOSEdata_PBTA['TECHNOLOGY']=='C1WDOFP00') | (GLUCOSEdata_PBTA['TECHNOLOGY']=='C1WDONP00')) & (GLUCOSEdata_PBTA['FUEL']=='C1_S_ELC')]
-otherRE_PE_all = GLUCOSEdata_PBTA[((GLUCOSEdata_PBTA['TECHNOLOGY']=='C1OCCVP00') | (GLUCOSEdata_PBTA['TECHNOLOGY']=='C1GOCVP00') | (GLUCOSEdata_PBTA['TECHNOLOGY']=='C1GOHTF03')) & (GLUCOSEdata_PBTA['FUEL']=='C1_S_ELC')]
-
-biomassPE = results_forPlotting(biomass_PE_all, 'PE', 'timeslice')
-hydroPE = results_forPlotting(hydro_PE_all, 'PE', 'fuel')
-solarPE = results_forPlotting(solar_PE_all, 'PE', 'fuel')
-windPE = results_forPlotting(wind_PE_all, 'PE', 'fuel')
-otherREPE = results_forPlotting(otherRE_PE_all, 'PE', 'fuel')
-
 #Secondary Energy, ELECTRICITY:
 #   coal =  C1_S_ELC - C1COCHP00, C1COIGP00, C1COSCP00
 #   coal+CCS = C1_S_ELC - C1COSCPCS
@@ -256,21 +192,79 @@ otherREPE = results_forPlotting(otherRE_PE_all, 'PE', 'fuel')
 #   wind = C1_S_HEAT - C1WDOFP00, C1WDONP00
 #   otherRE = C1_S_HEAT - C1GOCVP00, C1GOHTF03, C1OCCVP00
 
+#%% Dashboard colours
 
+colours = dict(
+    coal = 'rgb(0, 0, 0)',
+    oil = 'rgb(121, 43, 41)',
+    gas = 'rgb(86, 108, 140)',
+    nuclear = 'rgb(186, 28, 175)',
+    biomass = 'rgb(172, 199, 119)',
+    biofuel = 'rgb(79, 98, 40)',
+    hydro = 'rgb(0, 139, 188)',
+    wind = 'rgb(143, 119, 173)',
+    solar = 'rgb(230, 175, 0)',
+    geothermal = 'rgb(192, 80, 77)',
+    ocean ='rgb(22, 54, 92)',)
 
-#%%
-# Graph data
-x = GLUCOSE_years
-y = [coalPE.VALUE, gasPE.VALUE, oilPE.VALUE, nuclearPE.VALUE, biomassPE.VALUE, hydroPE.VALUE, solarPE.VALUE, windPE.VALUE, otherREPE.VALUE]
+#%% dash app
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-# Plot
-plt.stackplot(x,y, labels=['coal', 'gas', 'oil', 'nuclear', 'biomass', 'hydro', 'solar', 'wind', 'other RE'])
-plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-plt.show()
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-#z = [coal_TCA.VALUE, coalCCS_TCA.VALUE, gas_TCA.VALUE, gasCCS_TCA.VALUE, oil_TCA.VALUE, nuclear_TCA.VALUE, biomass_TCA.VALUE, biomassCCS_TCA.VALUE, hydro_TCA.VALUE, solar_TCA.VALUE, wind_TCA.VALUE, otherRE_TCA.VALUE]
-# plt.stackplot(x,z, labels=['coal', 'coal+CCS', 'gas', 'gas+CCS', 'oil', 'nuclear', 'biomass', 'biomass+CCS', 'hydro', 'solar', 'wind', 'other RE'])
-# plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-# plt.show()
+app.layout = html.Div(children=[
+    html.H1(children='GLUCOSE results'),
+    
+    html.H2(children='Total Annual Capacity'),
+    html.Div([
+        html.Label('Installed power generation capacity'),
+        dcc.Dropdown(
+            id='tca',
+            options = [{'label': i, 'value': TCA[i].VALUE} for i in TCA],
+            value = 'biomass'
+            ),
+        dcc.Graph(
+            id='tca-graph'
+            )
+        ], style={'width': '49%', 'display': 'inline-block'}),
+    
+    html.H2(children='Power generation'),
+    html.Div([        
+        html.Label('Electricity generation'),
+        dcc.Dropdown(
+            id='pbta',
+            options = [{'label': i, 'value': PBTA[i].VALUE} for i in PBTA],
+            value = 'biomass'
+            ),
+        dcc.Graph(
+            id='Power-generation'
+            )
+        ], style={'width': '49%', 'display': 'inline-block'})
+])
+
+app.layout = html.Div(children=[
+    html.H1(children='GLUCOSE results'),
+
+    html.Div(children='''
+        A dash board for comparing modelling results between GLUCOSE and SSP IAMs models.
+    '''),
+
+    dcc.Graph(
+        id='example-graph',
+        figure={
+            'data': [
+                 {'x': [1, 2, 3], 'y': [4, 1, 2], 'type': 'bar', 'name': 'SF'},
+                #{'x': z.YEAR, 'y': z.DATA, 'type': 'line', 'name': z.MODEL},
+                {'x': [1, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': u'Montréal'},
+            ],
+            'layout': {
+                'title': 'Capacity|Electricity'
+            }
+        }
+    )
+])
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
 
 # %%
