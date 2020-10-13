@@ -9,6 +9,8 @@ This is a temporary script file.
 import networkx as nx
 from networkx.utils import open_file
 
+#import pyyed
+
 #import pandas as pd
 import sys
 
