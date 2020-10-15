@@ -17,67 +17,51 @@ import plotly.express as px
 GLUCOSE_techs = pd.read_excel('GLUCOSE_configuration.xlsx', sheet_name='Technologies')
 EnergyTechs = GLUCOSE_techs.groupby(['Module']).get_group('energy')
 
-#%%
 GLUCOSE_fuels = pd.read_excel('GLUCOSE_configuration.xlsx', sheet_name='Fuels')
 GLUCOSE_years = pd.read_excel('GLUCOSE_configuration.xlsx', sheet_name='Years')
 
-GLUCOSEdata_all = pd.read_csv('/Users/agnese/Documents/KTH-Work/KTH-dESA:GLUCOSE_GitHub/GLUCOSE/results/Baseline/results_otoole/ProductionByTechnologyAnnual.csv')
+GLUCOSEdata_all = pd.read_csv('/Users/agnese/Documents/KTH-Work/GitHub_repositories/KTH-dESA:GLUCOSE_GitHub/GLUCOSE/results/Baseline/results_otoole/ProductionByTechnologyAnnual.csv')
 GLUCOSEdata_PBTA = GLUCOSEdata_all[GLUCOSEdata_all['YEAR']<2051]
-GLUCOSEdata_all = pd.read_csv('/Users/agnese/Documents/KTH-Work/KTH-dESA:GLUCOSE_GitHub/GLUCOSE/results/Baseline/results_otoole/UseByTechnology.csv')
+GLUCOSEdata_all = pd.read_csv('/Users/agnese/Documents/KTH-Work/GitHub_repositories/KTH-dESA:GLUCOSE_GitHub/GLUCOSE/results/Baseline/results_otoole/UseByTechnology.csv')
 GLUCOSEdata_UBT = GLUCOSEdata_all[GLUCOSEdata_all['YEAR']<2051]
 
-GLUCOSEdata_all = pd.read_csv('/Users/agnese/Documents/KTH-Work/KTH-dESA:GLUCOSE_GitHub/GLUCOSE/results/Baseline/results_otoole/TotalCapacityAnnual.csv')
+GLUCOSEdata_all = pd.read_csv('/Users/agnese/Documents/KTH-Work/GitHub_repositories/KTH-dESA:GLUCOSE_GitHub/GLUCOSE/results/Baseline/results_otoole/TotalCapacityAnnual.csv')
 GLUCOSEdata_TCA = GLUCOSEdata_all[GLUCOSEdata_all['YEAR']<2051]
 
 #%%
-def get_df_name(df):
-    name =[x for x in globals() if globals()[x] is df][0]
-    return name
+# def get_df_name(df):
+#     name =[x for x in globals() if globals()[x] is df][0]
+#     return name
 #%%
 def results_forPlotting(AllData, XY, TS):
     """
     function to summ all data by year for all technologies belonging to one category, and save the new data in a DataFrame to be used in the plot
     """
-    Years= AllData.YEAR.unique()
-    name = get_df_name(AllData)
-    TechName = XY #name[:name.index("_" + XY)]
     
-    RefinedData = pd.DataFrame(columns = AllData.columns)
+    RefinedData = {} #pd.DataFrame(columns = AllData.columns)
     if TS == 'timeslice':
-        for i in Years:
-            RefinedData_intermediate = pd.DataFrame(columns = AllData.columns)
-            for j in AllData.TIMESLICE.unique():
-                data = AllData[(AllData.YEAR==i) & (AllData.TIMESLICE==j)]
-                total1 = data.VALUE.sum()
-                RefinedData_intermediate = RefinedData_intermediate.append({'REGION': data.REGION.unique(), 'TIMESLICE':j, 'TECHNOLOGY':TechName, 'FUEL': data.FUEL.unique(), 'YEAR': i, 'VALUE': total1}, ignore_index=True)
-            total2 = RefinedData_intermediate.VALUE.sum()
-            RefinedData = RefinedData.append({'REGION': data.REGION.unique(), 'TIMESLICE':'Sum', 'TECHNOLOGY':TechName, 'FUEL': data.FUEL.unique(), 'YEAR': i, 'VALUE': total2}, ignore_index=True)
+        RefinedData[XY] = [AllData.groupby(by=['TIMESLICE', 'YEAR']).sum()]
     if TS == 'fuel':
-        for i in Years:
-            data = AllData[(AllData.YEAR==i)]
-            total = data.VALUE.sum()
-            RefinedData = RefinedData.append({'REGION': data.REGION.unique(), 'TECHNOLOGY':TechName, 'FUEL': data.FUEL.unique(), 'YEAR': i, 'VALUE': total}, ignore_index=True)
+        RefinedData[XY] = [AllData.groupby(['YEAR']).sum()]
     else:
-        for i in Years:
-            data = AllData[(AllData.YEAR==i)]
-            total = data.VALUE.sum()
-            RefinedData = RefinedData.append({'REGION': data.REGION.unique(), 'TECHNOLOGY':TechName, 'YEAR': i, 'VALUE': total}, ignore_index=True)
-    
+        RefinedData[XY] = [AllData.groupby(['YEAR']).sum()]
+
     return (RefinedData) 
 #%%
 #Capacity, electrical:
 #   coal = C1COCHP00, C1COIGP00, C1COSCP00
-#   coal+CCS = C1COSCPCS
+#   coal_CCS = C1COSCPCS
 #   gas = C1NGCCP00, C1NGCCPCH, C1NGGCP00, C1NGGCPCH
-#   gas+CCS = C1NGCCPCS
+#   gas_CCS = C1NGCCPCS
 #   oil = C1HFGCP00, C1HFGCPCH, C1LFCCP00
 #   nuclear = C1NULWP00
 #   biomass = C1BMCHP00, C1BMSCP00
-#   biomass+CCS = C1BMIGPCS
+#   biomass_CCS = C1BMIGPCS
 #   hydro = C1HYDMP00, C1HYMIP00
 #   solar = C1SOV1P00, C1SOV2P00, C1SOC1P00
 #   wind = C1WDOFP00, C1WDONP00
-#   otherRE = C1GOCVP00, C1OCCVP00
+#   geothermal = C1GOCVP00
+#   ocean = C1OCCVP00
 
 TCA_cat = {}
 for i in EnergyTechs.InputFuel.unique():
@@ -106,67 +90,6 @@ for i in TCA_cat:
 #   wind = C1_S_ELC - C1WDOFP00, C1WDONP00
 #   otherRE = C1_S_ELC - C1OCCVP00, C1GOCVP00, C1GOHTF03
 
-PrimaryLevel = {}
-fuel1=GLUCOSE_fuels.groupby(['Level']).get_group('primary')
-for j in fuel1.EnergyFuel.unique():
-    fuel2 = fuel1.groupby(['EnergyFuel']).get_group(j)
-    PrimaryLevel[j]= [fuel2.Commodity.unique()]
-
-SecondaryLevel = {}
-fuel3=GLUCOSE_fuels.groupby(['Level']).get_group('secondary')
-for k in fuel3.EnergyFuel.unique():
-    fuel4 = fuel3.groupby(['EnergyFuel']).get_group(k)
-    SecondaryLevel[k]= [fuel4.Commodity.unique()]
-
-Renewables = {}
-ren = EnergyTechs.groupby(['EnergyType']).get_group('renewable')
-for x in ren.InputFuel.unique():
-    ren2 = ren.groupby(['InputFuel']).get_group(x)
-    Renewables[x]=[ren2.Technology.unique()]
-
-#%%
-biomassdata = GLUCOSEdata_UBT[GLUCOSEdata_UBT['FUEL'].isin(PrimaryLevel['biomass'][0])]
-biomass_PBTA = results_forPlotting(biomassdata, 'biomass', 'timeslice')
-
-RefinedData = pd.DataFrame(columns = biomassdata.columns)
-TechName = 'biomass' #name[:name.index("_" + XY)]
-Years= biomassdata.YEAR.unique()
-for i in Years:
-    RefinedData_intermediate = pd.DataFrame(columns = biomassdata.columns)
-    for j in biomassdata.TIMESLICE.unique():
-        data = biomassdata[(biomassdata.YEAR==i) & (biomassdata.TIMESLICE==j)]
-        total1 = data.VALUE.sum()
-        RefinedData_intermediate = RefinedData_intermediate.append({'REGION': data.REGION.unique(), 'TIMESLICE':j, 'TECHNOLOGY':TechName, 'FUEL': data.FUEL.unique(), 'YEAR': i, 'VALUE': total1}, ignore_index=True)
-    total2 = RefinedData_intermediate.VALUE.sum()
-    RefinedData = RefinedData.append({'REGION': data.REGION.unique(), 'TIMESLICE':'sum', 'TECHNOLOGY':TechName, 'FUEL': data.FUEL.unique(), 'YEAR': i, 'VALUE': total2}, ignore_index=True)
-
-#%%
-PBTA = {}
-for i in PrimaryLevel:
-    if i == 'biomass':
-        data = GLUCOSEdata_UBT[GLUCOSEdata_UBT['FUEL'].isin(PrimaryLevel[i][0])]
-        PBTA[i] = results_forPlotting(data, i, 'timeslice')
-    else:    
-        data = GLUCOSEdata_PBTA[GLUCOSEdata_PBTA['FUEL'].isin(PrimaryLevel[i][0])]
-        PBTA[i] = results_forPlotting(data, i, 'fuel')
-for k in SecondaryLevel:
-    if k == 'electricity':
-        data = GLUCOSEdata_PBTA[GLUCOSEdata_PBTA['FUEL'].isin(SecondaryLevel[k][0])]    
-        for j in Renewables:
-            data1 = data[data['TECHNOLOGY'].isin(Renewables[j][0])] 
-            PBTA[j] = results_forPlotting(data1, j, 'fuel')
-        if k == 'heat':
-            data2 = GLUCOSEdata_PBTA[GLUCOSEdata_PBTA['FUEL'].isin(SecondaryLevel[k][0])]    
-            for j in Renewables:
-                data3 = data2[data2['TECHNOLOGY'].isin(Renewables[j][0])] 
-                PBTA[j] = results_forPlotting(data3, j, 'fuel')
-
-b=PBTA['biomass']
-s=PBTA['solar']
-g=PBTA['geothermal']
-
-
-#%%
 #Secondary Energy, ELECTRICITY:
 #   coal =  C1_S_ELC - C1COCHP00, C1COIGP00, C1COSCP00
 #   coal+CCS = C1_S_ELC - C1COSCPCS
@@ -191,6 +114,71 @@ g=PBTA['geothermal']
 #   solar = C1_S_HEAT - C1SOV1P00, C1SOV2P00, C1SOC1P00
 #   wind = C1_S_HEAT - C1WDOFP00, C1WDONP00
 #   otherRE = C1_S_HEAT - C1GOCVP00, C1GOHTF03, C1OCCVP00
+
+PrimaryLevel = {}
+SecondaryLevel = {}
+Fossil = {}
+Renewables = {}
+Electricity = {}
+
+primary = GLUCOSE_fuels.groupby(['Level']).get_group('primary')
+for j in primary.EnergyFuel.unique():
+    PrimaryLevel[j]= [(primary.groupby(['EnergyFuel']).get_group(j)).Commodity.unique()]
+
+secondary = GLUCOSE_fuels.groupby(['Level']).get_group('secondary')
+for k in secondary.EnergyFuel.unique():
+    SecondaryLevel[k]= [(secondary.groupby(['EnergyFuel']).get_group(k)).Commodity.unique()]
+
+fossil = EnergyTechs.groupby(['EnergyType']).get_group('fossil')
+for x in fossil.InputFuel.unique():
+    Fossil[x]=[(fossil.groupby(['InputFuel']).get_group(x)).Technology.unique()]
+
+renewable = EnergyTechs.groupby(['EnergyType']).get_group('renewable')
+for x in renewable.InputFuel.unique():
+    Renewables[x]=[(renewable.groupby(['InputFuel']).get_group(x)).Technology.unique()]
+
+elc = EnergyTechs.groupby(['EnergyType']).get_group('electricity')
+for x in elc.InputFuel.unique():
+    Electricity[x]=[(elc.groupby(['InputFuel']).get_group(x)).Technology.unique()]
+
+EnergyTypes = {}
+for ET in EnergyTechs.EnergyType.unique():
+    data = EnergyTechs.groupby(['EnergyType']).get_group(ET)
+    EnTyp={}
+    for key in data.InputFuel.unique():
+        EnTyp[key] =[(data.groupby(['InputFuel']).get_group(key)).Technology.unique()]
+    EnergyTypes[ET]=[EnTyp]
+
+
+PBTA_primary = {}
+PBTA_secondaryELC = {}
+PBTA_secondaryHEA = {}
+for i in PrimaryLevel:
+    if i == 'biomass':
+        data = GLUCOSEdata_UBT[GLUCOSEdata_UBT['FUEL'].isin(PrimaryLevel[i][0])]
+        PBTA_primary[i] = results_forPlotting(data, i, 'timeslice')
+    else:    
+        data = GLUCOSEdata_PBTA[GLUCOSEdata_PBTA['FUEL'].isin(PrimaryLevel[i][0])]
+        PBTA_primary[i] = results_forPlotting(data, i, 'fuel')
+for k in SecondaryLevel:
+    if k == 'electricity':
+        elc = GLUCOSEdata_PBTA[GLUCOSEdata_PBTA['FUEL'].isin(SecondaryLevel[k][0])]    
+        for j in Renewables:
+            ren_el = elc[elc['TECHNOLOGY'].isin(Renewables[j][0])] 
+            PBTA_primary[j] = results_forPlotting(ren_el, j, 'fuel')
+            PBTA_secondaryELC[j] = results_forPlotting(ren_el, j, 'fuel')
+        for x in Fossil:
+            fossil_el = elc[elc['TECHNOLOGY'].isin(Fossil[x][0])]
+            PBTA_secondaryELC[x] = results_forPlotting(fossil_el, x, 'fuel')
+    if k == 'heat':
+        heat = GLUCOSEdata_PBTA[GLUCOSEdata_PBTA['FUEL'].isin(SecondaryLevel[k][0])]    
+        for j in Renewables:
+            ren_heat = heat[heat['TECHNOLOGY'].isin(Renewables[j][0])] 
+            PBTA_primary[j] = results_forPlotting(ren_heat, j, 'fuel')
+            PBTA_secondaryHEA[j] = results_forPlotting(ren_heat, j, 'fuel')
+        for x in Fossil:
+            fossil_heat = heat[heat['TECHNOLOGY'].isin(Fossil[x][0])]
+            PBTA_secondaryHEA[x] = results_forPlotting(fossil_heat, x, 'fuel')
 
 #%% Dashboard colours
 
@@ -233,7 +221,7 @@ app.layout = html.Div(children=[
         html.Label('Electricity generation'),
         dcc.Dropdown(
             id='pbta',
-            options = [{'label': i, 'value': PBTA[i].VALUE} for i in PBTA],
+            options = [{'label': i, 'value': PBTA_primary[i].VALUE} for i in PBTA_primary],
             value = 'biomass'
             ),
         dcc.Graph(
