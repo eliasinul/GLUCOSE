@@ -7,7 +7,6 @@ Scripts for visualizing the results of the GLUCOSE model
 ## GLUCOSE Naming Convention
 
 ### Energy module - Technology names
-
 | Region |       | Resource ID |           | Technology ID |              | Level ID |         | Attributes |                     |
 |:------:|-------|:-----------:|-----------|:-------------:|--------------|:--------:|---------|:----------:|---------------------|
 | C1     | World | BF          | Biofuel   | RD            | Road         | F        | Final   | 00         |                     |
@@ -71,11 +70,31 @@ Scripts for visualizing the results of the GLUCOSE model
 | Region |       | Resource ID |           | Technology ID |              | Function |         | Attributes |                     |
 |:------:|-------|:-----------:|-----------|:-------------:|--------------|:--------:|---------|:----------:|---------------------|
 | C1     | World | HT          | Heat      | OO            | Distribution | T        | Transmission | FI    | Final, Industry     |
-|        |       |             |           |               |              |          |         | FR         |  FInal, Residential |
+|        |       |             |           |               |              |          |         | FR         | Final, Residential  |
+
+### Energy module - Resource vector names
+| Region |       | Resource Level |           | Resource ID |                      | Sector ID |             |
+|:------:|-------|:--------------:|-----------|:-----------:|----------------------|:---------:|-------------|
+| C1     | World | R              | Resource  | OIL         | Crude Oil            |           |             |
+|        |       | P              | Primary   | BIOW        | Biomass for energy   |           |             |
+|        |       |                |           | BIOW2       | Biomass for industry |           |             |
+|        |       |                |           | GAS         | Natural Gas          |           |             |
+|        |       |                |           | HCO         | Coal                 |           |             |
+|        |       |                |           | HFO         | Heavy Fuel Oil       |           |             |
+|        |       |                |           | LFO         | Light Fuel Oil       |           |             |
+|        |       |                |           | NUC         | Nuclear              |           |             |
+|        |       | S              | Secondary | BIOL        | Biofuel              |           |             |
+|        |       |                |           | ELC         | Electricity          |           |             |
+|        |       |                |           | HEAT        | Heat                 |           |             |
+|        |       | F              | Final     | CLS         | Electricity          |           |             |
+|        |       |                |           | HEA         | Heat                 | I         | Industry    |
+|        |       |                |           |             |                      | R         | Residential |
+|        |       |                |           | MOT         | Motion and Aviation  |           |             |
+|        |       |                |           | RD          | Road                 |           |             |
+|        |       |                |           | RL          | Rail                 |           |             |
 
 
 ### Materials module - Technology names
-
 | Resource ID |                                  | Technology ID |              |
 |:-----------:|----------------------------------|:-------------:|--------------|
 | XALU        | Primary resource, Aluminium      | MINE          | Extraction   |
@@ -91,21 +110,57 @@ Scripts for visualizing the results of the GLUCOSE model
 | PETB        | Petrochemicals                   | PLANT         | Production   |
 | STE         | Steel and Iron                   | PLANT         | Production   |
 
+### Materials module - Resource vector names
+| Resource Level |                       | Resource ID |                      |
+|:--------------:|-----------------------|:-----------:|----------------------|
+| X              | Resource (extraction) | ALU         | Aluminium            |
+|                |                       | CEM         | Cement               |
+|                |                       | PHO         | Phosphorus           |
+|                |                       | POT         | Potassium            |
+|                |                       | STE         | Steel and Iron       |
+| F              | Final                 | ALU         | Aluminium            |
+|                |                       | AMM         | Ammonia              |
+|                |                       | CEM         | Cement               |
+|                |                       | FERT        | Fertiliser           |
+|                |                       | PAP         | Pulp and Paper       |
+|                |                       | PET         | Petrochemicals       |
+|                |                       | STE         | Steel and Iron       |
+
 
 ### Land and Food module - Technology names
+| Resource ID |                           | Resource type |                     | Level ID |              |
+|:-----------:|---------------------------|:-------------:|---------------------|:--------:|--------------|
+| L0          | Land                      | 00            | Total               | RES      | Resource     |
+| LA          | Agriculture Land          | 00            | Total               | RES      | Resource     |
+|             |                           | Cr            | Cropland, rainfed   | RES      | Resource     |
+|             |                           |               |                     | PRD      | Production   |
+|             |                           | Ci            | Cropland, Irrigated | RES      | Resource     |
+|             |                           |               |                     | PRD      | Production   |
+|             |                           | PS            | Pasture land        | RES      | Resource     |
+|             |                           |               |                     | PRD      | Production   |
+| LF          | Forest land               | 00            | Total               | RES      | Resource     |
+|             |                           | PR            | Primary forest land | RES      | Resource     |
+|             |                           | OT            | Other forest land   | RES      | Resource     |
+|             |                           |               |                     | PRD      | Production   |
+| LO          | Other Land                | 00            | Total               | RES      | Resource     |
 
-| Resource ID |                           | Resource type |                     | Technology ID |              |
-|:-----------:|---------------------------|:-------------:|---------------------|:-------------:|--------------|
-| L0          | Land                      | 00            | Total               | RES           | Resource     |
-| LA          | Agriculture Land          | 00            | Total               | RES           | Resource     |
-|             |                           | Cr            | Cropland, rainfed   | RES           | Resource     |
-|             |                           |               |                     | PRD           | Production   |
-|             |                           | Ci            | Cropland, Irrigated | PRD           | Resource     |
-|             |                           |               |                     | PRD           | Production   |
-|             |                           | PS            | Pasture land        | RES           | Resource     |
-|             |                           |               |                     | RES           | Production   |
-| LF          | Forest land               | 00            | Total               | RES           | Resource     |
-|             |                           | PR            | Primary forest land | RES           | Resource     |
-|             |                           | OT            | Other forest land   | RES           | Resource     |
-|             |                           | OT            | Other forest land   | PRD           | Production   |
-| LO          | Other Land                | 00            | Total               | RES           | Resource     |
+### Land and Food module - Resource vector names
+#### Land - Resource vector names
+| Resource ID |                      | Land Level |                     | Sector ID |                            |
+|:-----------:|----------------------|:----------:|---------------------|:---------:|----------------------------|
+| LAND        | Land, total          |            |                     |           |                            |
+| L           | Land                 | AGR        | Agriculture         |           |                            |
+|             |                      |            |                     | MFOO      | Livestock production       |
+|             |                      |            |                     | VFOO      | Crops production           |
+|             |                      |            |                     | VFOOi     | Irrigated Crops production |
+|             |                      | FRST       | Forest              |           |                            |
+|             |                      |            |                     | BIOW      | Biomass production         |
+|             |                      | OTHER      | Other              |           |                            |
+
+#### Food - Resource vector names
+| Resource ID |                      | Resource Level |                     | Origin |                           |
+|:-----------:|----------------------|:--------------:|---------------------|:------:|---------------------------|
+| MFOO        | Livestock, food      |                |                     |        |                           |
+|             |                      | P              | Primary             | LAPS   | Agriculture land, Pasture |
+| VFOO        | Crops, food          |                |                     |        |                           |
+|             |                      | P              | Primary             | LAC    | Agriculture land, Crops   |
