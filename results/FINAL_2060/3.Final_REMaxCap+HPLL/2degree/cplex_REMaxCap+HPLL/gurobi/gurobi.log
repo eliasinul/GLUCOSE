@@ -1,0 +1,84 @@
+
+Gurobi 9.1.1 (mac64, gurobi_cl) logging started Sat Feb 27 19:26:56 2021
+
+Academic license - for non-commercial use only - expires 2021-04-06
+Using license file /Users/agnese/gurobi.lic
+Set parameter LogFile to value gurobi.log
+
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (mac64)
+Copyright (c) 2020, Gurobi Optimization, LLC
+
+Read LP format model from file /Users/agnese/Documents/KTH-Work/GitHub_repositories/KTH-dESA/GLUCOSE/results/FINAL_2060/2Degree/cplex_REMaxCap+HPLL/gurobi/GLUCOSE_Final2DEGREE_REMaxCap+HPLL.lp
+Reading time = 0.54 seconds
+cost: 55953 rows, 46410 columns, 511722 nonzeros
+Thread count: 2 physical cores, 4 logical processors, using up to 4 threads
+Optimize a model with 55953 rows, 46410 columns and 511722 nonzeros
+Model fingerprint: 0xdc2381d0
+Coefficient statistics:
+  Matrix range     [2e-08, 6e+03]
+  Objective range  [7e-08, 4e+11]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e-04, 1e+06]
+Warning: Model contains large objective coefficients
+         Consider reformulating model or setting NumericFocus parameter
+         to avoid numerical issues.
+
+Concurrent LP optimizer: dual simplex and barrier
+Showing barrier log only...
+
+Presolve removed 30245 rows and 28132 columns
+Presolve time: 0.25s
+Presolved: 25708 rows, 18479 columns, 350759 nonzeros
+
+Ordering time: 0.76s
+
+Barrier statistics:
+ AA' NZ     : 1.296e+06
+ Factor NZ  : 7.232e+06 (roughly 80 MBytes of memory)
+ Factor Ops : 5.673e+09 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   5.03793035e+20 -3.78312836e+17  9.31e+08 2.08e+12  3.51e+16     2s
+   1   2.71152923e+20 -5.07232972e+17  9.15e+08 1.98e+12  3.42e+16     3s
+   2   2.65506718e+20 -8.72993218e+17  6.86e+08 1.77e+12  2.80e+16     3s
+   3   1.25863357e+20 -3.20870608e+18  2.84e+08 5.99e+11  1.41e+16     4s
+   4   3.65699568e+19 -3.78914404e+18  8.19e+07 6.61e+10  4.49e+15     5s
+   5   2.42343952e+18 -3.04765505e+18  5.32e+06 3.25e+07  3.47e+14     5s
+   6   9.32810630e+17 -1.83648124e+18  2.07e+06 1.05e+07  1.42e+14     6s
+   7   5.19428823e+17 -1.14986295e+18  1.12e+06 4.01e+06  7.72e+13     7s
+   8   7.53443330e+16 -4.04004519e+17  1.59e+05 7.02e+05  1.54e+13     7s
+   9   1.94191708e+16 -1.15604384e+17  4.09e+04 1.48e+05  4.13e+12     8s
+  10   6.03073780e+15 -3.33925458e+16  1.22e+04 3.45e+04  1.26e+12     9s
+  11   3.04214409e+15 -8.48636112e+15  6.09e+03 6.28e+03  4.59e+11    10s
+  12   1.37642604e+15 -5.07252490e+15  2.74e+03 3.27e+03  2.30e+11    10s
+  13   7.18779232e+14 -1.71615740e+15  1.40e+03 8.09e+02  9.57e+10    11s
+  14   1.48177147e+14 -7.76273821e+14  2.52e+02 2.40e+02  2.65e+10    12s
+  15   4.18774283e+13 -2.50268318e+14  4.86e+01 5.10e+01  7.35e+09    12s
+  16   1.05224154e+13 -8.19877093e+13  3.61e+00 1.09e+01  2.11e+09    13s
+  17   4.51066657e+11 -8.37088118e+12  9.79e-02 2.40e-01  1.83e+08    14s
+  18   2.36593638e+10 -6.59705145e+11  3.22e-08 9.52e-03  1.40e+07    15s
+  19   1.29991113e+10 -3.16033338e+11  1.33e-08 4.39e-03  6.73e+06    15s
+  20   5.30437309e+09 -3.62926647e+10  7.73e-09 7.32e-04  8.51e+05    16s
+  21   3.78819295e+09 -1.08702205e+10  3.09e-09 2.44e-04  3.00e+05    16s
+  22   2.17819285e+09  3.56093048e+08  4.90e-09 4.88e-04  3.73e+04    17s
+  23   1.71818400e+09  1.33437207e+09  1.11e-08 4.88e-04  7.85e+03    18s
+  24   1.63058369e+09  1.48777219e+09  1.78e-08 4.88e-04  2.92e+03    19s
+  25   1.59412827e+09  1.57488970e+09  7.02e-08 2.44e-04  3.94e+02    19s
+  26   1.58228637e+09  1.58072528e+09  6.01e-08 2.44e-04  3.19e+01    20s
+  27   1.58195755e+09  1.58175560e+09  8.81e-09 4.88e-04  4.13e+00    21s
+  28   1.58192780e+09  1.58182872e+09  3.07e-08 2.44e-04  2.03e+00    22s
+  29   1.58190074e+09  1.58186823e+09  1.32e-08 2.44e-04  6.65e-01    23s
+
+Barrier performed 29 iterations in 23.32 seconds
+Barrier solve interrupted - model solved by another algorithm
+
+
+Solved with dual simplex
+Solved in 52882 iterations and 23.33 seconds
+Optimal objective  1.581885455e+09
+
+Wrote result file '2DEGREE_gurobi.sol'
+Wrote result file '2DEGREE_gurobi.json'
+
