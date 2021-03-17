@@ -1,0 +1,61 @@
+
+Gurobi 9.1.1 (mac64, gurobi_cl) logging started Sun Feb 21 17:04:21 2021
+
+Academic license - for non-commercial use only - expires 2021-04-06
+Using license file /Users/agnese/gurobi.lic
+Set parameter LogFile to value gurobi.log
+
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (mac64)
+Copyright (c) 2020, Gurobi Optimization, LLC
+
+Read LP format model from file /Users/agnese/Documents/KTH-Work/GitHub_repositories/KTH-dESA/GLUCOSE/results/2Degree2060/GLUCOSE_2Degree2060_modified2.lp
+Reading time = 0.43 seconds
+cost: 55289 rows, 45900 columns, 520298 nonzeros
+Thread count: 2 physical cores, 4 logical processors, using up to 4 threads
+Optimize a model with 55289 rows, 45900 columns and 520298 nonzeros
+Model fingerprint: 0x24c6b7f9
+Coefficient statistics:
+  Matrix range     [2e-08, 6e+03]
+  Objective range  [7e-08, 4e+11]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e-03, 1e+06]
+Warning: Model contains large objective coefficients
+         Consider reformulating model or setting NumericFocus parameter
+         to avoid numerical issues.
+
+Concurrent LP optimizer: dual simplex and barrier
+Showing barrier log only...
+
+Presolve removed 29711 rows and 27980 columns
+Presolve time: 0.22s
+Presolved: 25578 rows, 18042 columns, 356642 nonzeros
+
+Ordering time: 1.28s
+
+Barrier statistics:
+ AA' NZ     : 1.308e+06
+ Factor NZ  : 9.032e+06 (roughly 90 MBytes of memory)
+ Factor Ops : 8.381e+09 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   5.03243374e+20 -3.34506375e+17  9.31e+08 2.08e+12  3.46e+16     2s
+   1   2.66835040e+20 -4.81665822e+17  9.16e+08 1.98e+12  3.37e+16     3s
+
+Barrier performed 1 iterations in 3.31 seconds
+Barrier solve interrupted - model solved by another algorithm
+
+
+Solved with dual simplex
+Solved in 20470 iterations and 3.33 seconds
+Infeasible or unbounded model
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -4.5900000e+33   6.086233e+33   4.590000e+03      0s
+   28229    1.3790456e+09   2.485561e+09   0.000000e+00      5s
+
+IIS computed: 39 constraints and 116 bounds
+IIS runtime: 5.36 seconds
+
+Wrote result file 'output.ilp'
+

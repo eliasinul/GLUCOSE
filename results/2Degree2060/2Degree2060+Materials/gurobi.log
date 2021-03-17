@@ -1,0 +1,51 @@
+
+Gurobi 9.1.1 (mac64, gurobi_cl) logging started Fri Feb 19 17:01:26 2021
+
+Academic license - for non-commercial use only - expires 2021-04-06
+Using license file /Users/agnese/gurobi.lic
+Set parameter LogFile to value gurobi.log
+
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (mac64)
+Copyright (c) 2020, Gurobi Optimization, LLC
+
+Read LP format model from file /Users/agnese/Documents/KTH-Work/GitHub_repositories/KTH-dESA/GLUCOSE/results/2Degree2060/GLUCOSE_2Degree2060+Materials.lp
+Reading time = 0.63 seconds
+cost: 55289 rows, 45900 columns, 520298 nonzeros
+Thread count: 2 physical cores, 4 logical processors, using up to 4 threads
+Optimize a model with 55289 rows, 45900 columns and 520298 nonzeros
+Model fingerprint: 0xca1014ac
+Coefficient statistics:
+  Matrix range     [2e-08, 6e+03]
+  Objective range  [7e-08, 4e+11]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e-03, 1e+06]
+Warning: Model contains large objective coefficients
+         Consider reformulating model or setting NumericFocus parameter
+         to avoid numerical issues.
+
+Concurrent LP optimizer: dual simplex and barrier
+Showing barrier log only...
+
+Presolve removed 30095 rows and 27983 columns
+Presolve time: 0.28s
+Presolved: 25194 rows, 18039 columns, 350920 nonzeros
+
+Ordering time: 1.20s
+
+Barrier performed 0 iterations in 1.70 seconds
+Barrier solve interrupted - model solved by another algorithm
+
+
+Solved with dual simplex
+Solved in 10413 iterations and 1.70 seconds
+Infeasible or unbounded model
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -4.5900000e+33   6.086233e+33   4.590000e+03      0s
+   23198    1.1456411e+09   5.058552e+06   0.000000e+00      5s
+Warning: very big Kappa = 1.16598e+12, try parameter NumericFocus
+
+IIS computed: 80 constraints and 114 bounds
+IIS runtime: 8.68 seconds
+
+Wrote result file 'output.ilp'
+
