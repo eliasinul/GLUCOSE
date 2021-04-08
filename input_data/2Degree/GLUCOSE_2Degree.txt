@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+# GLUCOSE_2Degree scenario
+>>>>>>> cplex_results
 ###############
 #    Sets     #
 ###############

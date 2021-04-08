@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+# GLUCOSE_Food scenario
+>>>>>>> cplex_results
 ###############
 #    Sets     #
 ###############
