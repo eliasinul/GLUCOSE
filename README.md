@@ -22,5 +22,3 @@ To enhance the transparency and accessibility of the model data and results, bot
 ## Licensing
 
 - Data is released under the terms of a CC-BY 4.0 License Agreement.
-- A modified copy of OSeMOSYS is redistribruted in this repository under Apache 2.0 license agreement,
-  a copy of which can be found in the `model` folder
