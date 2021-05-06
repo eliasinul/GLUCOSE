@@ -5,7 +5,7 @@ The Global Least-cost User-friendly CLEWs Open Source Exploratory model
 
 - Input data files in .txt and .csv formats are stored in the `input_data` folder
     - One folder is available per each modelled scenario: namely, BASELINE, 2DEGREE, FOOD, MATERIALS, TOTAL. 
-- The OSeMOSYS model file needed to run the GLUCOSE model is retrievable froom the [OSeMOSYS GitHub repository] (https://github.com/OSeMOSYS/OSeMOSYS_GNU_MathProg/releases)
+- The OSeMOSYS model file needed to run the GLUCOSE model is retrievable froom the [OSeMOSYS GitHub repository](https://github.com/OSeMOSYS/OSeMOSYS_GNU_MathProg/releases)
 
 - To run GLUCOSE on your device, the following software needs to be installed:
     - [GNU Linear Programming Kit (`GLPK`)](https://sourceforge.net/projects/winglpk/): instructions for installing `GLPK` are available [here](https://sourceforge.net/projects/winglpk/)
