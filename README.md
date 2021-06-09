@@ -21,4 +21,4 @@ To enhance the transparency and accessibility of the model data and results, bot
 
 ## Licensing
 
-- Data is released under the terms of a CC-BY 4.0 License Agreement.
+- Data is released under the terms of a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode) License Agreement.
