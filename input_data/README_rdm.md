@@ -1,4 +1,4 @@
-# Log changes
+# Log changes, 2022
 ## Solar and Wind resource constraints
 Increased estimates for solar and wind renewable capacity potential
 - Changing TotalAnnualCapacity and TotatlAnnualMaxCapacityInvestment for solar PV technologies (C1SOV1P00, C1SOV2P00), based on SolarPower Europe (2022) "Global Market Outlook for Solar Power 2022-2026" <https://www.solarpowereurope.org/insights/market-outlooks/global-market-outlook-for-solar-power-2022>
@@ -25,3 +25,18 @@ Sources:
 - ModelPeriodEmissionLimit: added based on IPCC AR6 WG1 (2021) on "Climate Change 2021: The Physical Science Basis report", Summary Volume <https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SummaryVolume.pdf>
     - Page 29, Table SPM.2 - Estimated remaining carbon budgets from the beginning of 2020 (GtCO2) [with Likelyhood of limiting global warming to temperature limit of 83%].
 
+
+# Log changes, 2024
+## Adding Hydrogen and Methanol production
+
+### Hydrogen production (C1ELHGP00)
+Adding one technology (C1ELHGP00) and one fuel - secondary hydrogen (C1_S_HDG)
+- Efficiency, CapitalCost and OperationalLife data coming from IEA (2023) "Global Hydrogen Review 2023: Assumptions Annex <https://www.iea.org/reports/global-hydrogen-review-2023#downloads>
+- EmissionActivityRatio for WATER, derived from:
+    - Office of Energy Efficiency & Renewable Energy, U.S. Dept. of Energy (n.a.) "Hydrogen Storage" <https://www.energy.gov/eere/fuelcells/hydrogen-storage#:~:text=On%20a%20mass%20basis%2C%20hydrogen,44%20MJ%2Fkg%20for%20gasoline.>
+    - Rocky Mountain Institute (2023) "Hydrogen Reality Check: Distilling Green Hydrogen’s Water Consumption" <https://rmi.org/hydrogen-reality-check-distilling-green-hydrogens-water-consumption/#:~:text=Per%20chemistry%20fundamentals%2C%209%20liters,20%20L%2Fkg%20is%20needed.>
+    - TotalAnnualMax/MixCapacity constraint defined based on IEA (n.a.) "Electrolysers" <https://www.iea.org/energy-system/low-emission-fuels/electrolysers>
+
+### Methanol production (C1ELMHP00)
+Adding one technology (C1ELMHP00) and one fuel - secondary methanol (C1_S_MOH)
+- data for EmissionActivityRatio (for WATER and CO2EQ), InputActivityRatio, VariableCost, coming from IRENA (2021) "Innovation Outlook: Renewable Methanol" <https://www.irena.org/publications/2021/Jan/Innovation-Outlook-Renewable-Methanol>
