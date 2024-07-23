@@ -28,7 +28,6 @@ Sources:
 
 # Log changes, 2024
 ## Adding Hydrogen and Methanol production
-
 ### Hydrogen production (C1ELHGP00)
 Adding one technology (C1ELHGP00) and one fuel - secondary hydrogen (C1_S_HDG)
 - Efficiency, CapitalCost and OperationalLife data coming from IEA (2023) "Global Hydrogen Review 2023: Assumptions Annex <https://www.iea.org/reports/global-hydrogen-review-2023#downloads>
@@ -40,3 +39,9 @@ Adding one technology (C1ELHGP00) and one fuel - secondary hydrogen (C1_S_HDG)
 ### Methanol production (C1ELMHP00)
 Adding one technology (C1ELMHP00) and one fuel - secondary methanol (C1_S_MOH)
 - data for EmissionActivityRatio (for WATER and CO2EQ), InputActivityRatio, VariableCost, coming from IRENA (2021) "Innovation Outlook: Renewable Methanol" <https://www.irena.org/publications/2021/Jan/Innovation-Outlook-Renewable-Methanol>
+
+## Adding Maritime transport using Methanol (C1MHMRF00)
+Adding one technology (C1MHMRF00) using Methanol (C1_S_MOH) as fuel
+- data sources:
+    - IRENA (2021) "Innovation Outlook: Renewable Methanol" <https://www.irena.org/publications/2021/Jan/Innovation-Outlook-Renewable-Methanol>
+    - Lundgren and Wachsmann (2014) "The potential of methanol as a competiitve marine fuel" <https://odr.chalmers.se/items/25e40178-c48e-441e-ade5-f66f81dd5fd1>
