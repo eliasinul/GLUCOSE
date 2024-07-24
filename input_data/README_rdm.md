@@ -75,8 +75,14 @@ Adding a low-carbon Cement industry option [CEMPLANTCS] using carbon capture and
     - IEA (2023) "Cement, Innovation" <https://www.iea.org/energy-system/industry/cement>
 
 ## Adding high temperature (industrial) heat pump [C1HPINF0I] generating heat for industry [C1_F_HEA_IHP]
-Adding high temperature (industrial) heat pump technology option [tech: C1HPINF0I] producing heat for industrial use [fuel: C1_F_HEA_IHP]
+Adding high temperature (industrial) heat pump technology option [tech: C1HPINF0I] producing heat for industrial use [fuel: C1_F_HEA_IHP].
 - Data sources:
     - Danish Energy Agency (2022) "Technology Data for Industrial Process Heat" <https://ens.dk/en/our-services/technology-catalogues/technology-data-industrial-process-heat>
     - McKinsey & Company (2024) "Industrial heat pumps: Five considerations for future growth" <https://www.mckinsey.com/industries/industrials-and-electronics/our-insights/industrial-heat-pumps-five-considerations-for-future-growth>
+
+## Adding Pulp&Paper industry process [PAPELPLANT] using electrified heat [C1_F_HEA_IHP] from industrial heat pump as input
+Adding Pulp&Paper industry process [tech: PAPELPLANT] using electrified heat [fuel: C1_F_HEA_IHP] from industrial heat pump as input, providing a low-carbon alternative to traditional Pulp&Paper industry.
+- Data sources:
+    - IEA (2023) "Paper, Technology deployment" <https://www.iea.org/energy-system/industry/paper>
+    - Zuberi et al (2023) "Techno-economic evaluation of industrial heat pump applications in US pulp and paper, textile, and automotive industries" <https://doi.org/10.1007/s12053-023-10089-6>
 
