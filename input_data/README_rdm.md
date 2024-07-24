@@ -56,11 +56,13 @@ Adding one technology [STEHGPLANT] using hydrogen [C1_S_HDG] as fuel input to pr
         - HYBRIT (2017) "Summary of findings from HYBRIT Pre-Feasibility Study 2016–2017" <https://www.hybritdevelopment.se/en/media/hybrit-brochure-english/>
 
 ## Adding Aluminium recycling [ALURECYCLE] and Aluminium industry [ALURCPLANT] using recycled aluminium [RCALU]
+### Aluminium Recycling [ALURECYCLE] producing recycled aluminium [RCALU]
 Adding one technology [ALURECYCLE] to produce recycled aluminium [RCALU].
-Adding one technology to represent sustainable aluminium industry [ALURCPLANT] using recycled aluminium [RCALU] as fuel input to produce aluminium.
-- Data sources for ALURECYCLE:
+- Data sources:
     - International Aluminium Institute (2020) "Aluminium Recycling Factsheet" <https://international-aluminium.org/resource/aluminium-recycling-fact-sheet/>
     - IEA (2023) "Aluminium, Technology deployment" <https://www.iea.org/energy-system/industry/aluminium>
+### Aluminium industry [ALURCPLANT] using recycled aluminium
+Adding one technology to represent sustainable aluminium industry [ALURCPLANT] using recycled aluminium [RCALU] as fuel input to produce aluminium.
 - Data sources for ALURCPLANT:
     - Cushman-Roisin and Cremonini (2021) "Data, Statistics, and Useful Numbers for Environmental Sustainability, Chapter 1 - Materials" <https://doi.org/10.1016/B978-0-12-822958-3.00012-1>
     - Deng et al. (2022) "Environmental-Techno-Economic analysis of decarbonization strategies for the Indian aluminum industry" <https://doi.org/10.1016/j.enconman.2022.116455>
