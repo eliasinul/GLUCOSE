@@ -42,16 +42,29 @@ Adding one technology (C1ELMHP00) and one fuel - secondary methanol (C1_S_MOH)
 
 ## Adding Maritime transport using Methanol (C1MHMRF00)
 Adding one technology (C1MHMRF00) using Methanol (C1_S_MOH) as fuel
-- data sources:
+- Data sources:
     - IRENA (2021) "Innovation Outlook: Renewable Methanol" <https://www.irena.org/publications/2021/Jan/Innovation-Outlook-Renewable-Methanol>
     - Lundgren and Wachsmann (2014) "The potential of methanol as a competiitve marine fuel" <https://odr.chalmers.se/items/25e40178-c48e-441e-ade5-f66f81dd5fd1>
 
 ## Adding Steel industry using hydrogen (STEHGPLANT)
-Adding one technology (STEHGPLANT) using hydrigen (C1_S_HDG) as fuel input to produce steel:
-- data sources:
+Adding one technology (STEHGPLANT) using hydrogen (C1_S_HDG) as fuel input to produce steel:
+- Data sources:
     - Shahabuddin et al. (2023) "Decarbonisation and hydrogen integration of steel industries: Recent development, challenges and technoeconomic analysis" <https://www.sciencedirect.com/science/article/pii/S0959652623005498#bib5>
     - HYBRIT project:
         - Pei et al. (2023) "Toward a Fossil Free Future with HYBRIT: Development of Iron and Steelmaking Technology in Sweden and Finland" <https://www.mdpi.com/2075-4701/10/7/972>
         - Åhman et al. (2018) "Hydrogen steelmaking for a low-carbon economy: A joint LU-SEI working paper for the HYBRIT project" <https://www.sei.org/publications/hydrogen-steelmaking/>
         - HYBRIT (2017) "Summary of findings from HYBRIT Pre-Feasibility Study 2016–2017" <https://www.hybritdevelopment.se/en/media/hybrit-brochure-english/>
+
+## Adding Aluminium recycling (ALURECYCLE) and Aluminium industry (ALURCPLANT) using recycled aluminium (RCALU)
+Adding one technology (ALURECYCLE) to produce recycled aluminium (RCALU)
+Adding one technology to represent sustainable aluminium industry (ALURCPLANT) using recycled aluminium (RCALU) as fuel input to produce aluminium.
+- Data sources for ALURECYCLE:
+    - International Aluminium Institute (2020) "Aluminium Recycling Factsheet" <https://international-aluminium.org/resource/aluminium-recycling-fact-sheet/>
+    - IEA (2023) "Aluminium, Technology deployment" <https://www.iea.org/energy-system/industry/aluminium>
+- Data sources for ALURCPLANT:
+    - Cushman-Roisin and Cremonini (2021) "Data, Statistics, and Useful Numbers for Environmental Sustainability, Chapter 1 - Materials" <https://doi.org/10.1016/B978-0-12-822958-3.00012-1>
+    - Deng et al. (2022) "Environmental-Techno-Economic analysis of decarbonization strategies for the Indian aluminum industry" <https://doi.org/10.1016/j.enconman.2022.116455>
+    - International Aluminium Institute (2020) "Aluminium Recycling Factsheet" <https://international-aluminium.org/resource/aluminium-recycling-fact-sheet/>
+    - IEA (2023) "Aluminium, Technology deployment" <https://www.iea.org/energy-system/industry/aluminium>
+    - IEA ETSAP (2012) "Aluminium Production" <https://iea-etsap.org/E-TechDS/PDF/I10_AlProduction_ER_March2012_Final%20GSOK.pdf>
 
