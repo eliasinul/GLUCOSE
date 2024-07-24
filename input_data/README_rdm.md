@@ -70,8 +70,8 @@ Adding one technology to represent sustainable aluminium industry [ALURCPLANT] u
     - IEA (2023) "Aluminium, Technology deployment" <https://www.iea.org/energy-system/industry/aluminium>
     - IEA ETSAP (2012) "Aluminium Production" <https://iea-etsap.org/E-TechDS/PDF/I10_AlProduction_ER_March2012_Final%20GSOK.pdf>
 
-## Adding low-carbon Cement industry with CS [CEMPLANTCS]
-Adding a low-carbon Cement industry option [CEMPLANTCS] using carbon capture and storage to lower industry-related CO2EQ emissions.
+## Adding low-carbon Cement industry with CS [CEMCSPLANT]
+Adding a low-carbon Cement industry option [CEMCSPLANT] using carbon capture and storage to lower industry-related CO2EQ emissions.
 - Data sources:
     - Roussanaly et al. (2017) "Techno-economic Analysis of MEA CO2 Capture from a Cement Kiln – Impact of Steam Supply Scenario" <https://doi.org/10.1016/j.egypro.2017.03.1761>
     - IEA (2023) "Cement, Innovation" <https://www.iea.org/energy-system/industry/cement>
