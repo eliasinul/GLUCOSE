@@ -86,3 +86,7 @@ Adding Pulp&Paper industry process [tech: PAPELPLANT] using electrified heat [fu
     - IEA (2023) "Paper, Technology deployment" <https://www.iea.org/energy-system/industry/paper>
     - Zuberi et al (2023) "Techno-economic evaluation of industrial heat pump applications in US pulp and paper, textile, and automotive industries" <https://doi.org/10.1007/s12053-023-10089-6>
 
+## Adding Petrochemical industry process [PETBELPLANT] using electrified heat [C1_F_HEA_IHP] from industrial heat pump as input
+Adding Petrochemical industry process [tech: PETBELPLANT] using electrified heat [fuel: C1_F_HEA_IHP] from industrial heat pump to supply 80% of the heat input, allowing for using a higher share of renewable primary energy resources compared to traditional Petrochemical industry.
+- Data sources:
+    - IEA (2023) "Chemicals, Innovation" <https://www.iea.org/energy-system/industry/chemicals>
