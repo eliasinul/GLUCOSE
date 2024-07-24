@@ -12,7 +12,7 @@ The Global Least-cost User-friendly CLEWs Open Source Exploratory model
 
 - To generate results for GLUCOSE, the following steps are needed:
     1. On your device, type the following command in the terminal to generate the linear programming file needed to solve the model:
-        > glpsol -m model_file.txt -d data_file.txt --wlp results_file.lp
+        > glpsol -m model_file.txt -d data_file.txt --wlp results_file.lp --check
     2. Once the `results_file.lp`is generated, the model can be optimized using a solver of your choice. 
         In order for the GLUCOSE model to be completely open from source to solver, we recommend using the open-source mixed integer linear programming solver [**Cbc**](https://github.com/coin-or/Cbc):
         > cbc results_file.lp solve -solu results_file.txt
