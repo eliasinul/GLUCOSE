@@ -29,7 +29,7 @@ Sources:
 # Log changes, 2024
 ## Adding Hydrogen and Methanol production
 ### Hydrogen production (C1ELHGP00)
-Adding one technology (C1ELHGP00) and one fuel - secondary hydrogen (C1_S_HDG)
+Adding one technology (C1ELHGP00) and one fuel - secondary hydrogen (C1_S_HDG).
 - Efficiency, CapitalCost and OperationalLife data coming from IEA (2023) "Global Hydrogen Review 2023: Assumptions Annex <https://www.iea.org/reports/global-hydrogen-review-2023#downloads>
 - EmissionActivityRatio for WATER, derived from:
     - Office of Energy Efficiency & Renewable Energy, U.S. Dept. of Energy (n.a.) "Hydrogen Storage" <https://www.energy.gov/eere/fuelcells/hydrogen-storage#:~:text=On%20a%20mass%20basis%2C%20hydrogen,44%20MJ%2Fkg%20for%20gasoline.>
@@ -37,17 +37,17 @@ Adding one technology (C1ELHGP00) and one fuel - secondary hydrogen (C1_S_HDG)
     - TotalAnnualMax/MixCapacity constraint defined based on IEA (n.a.) "Electrolysers" <https://www.iea.org/energy-system/low-emission-fuels/electrolysers>
 
 ### Methanol production (C1ELMHP00)
-Adding one technology (C1ELMHP00) and one fuel - secondary methanol (C1_S_MOH)
-- data for EmissionActivityRatio (for WATER and CO2EQ), InputActivityRatio, VariableCost, coming from IRENA (2021) "Innovation Outlook: Renewable Methanol" <https://www.irena.org/publications/2021/Jan/Innovation-Outlook-Renewable-Methanol>
+Adding one technology (C1ELMHP00) and one fuel - secondary methanol (C1_S_MOH).
+- Data for EmissionActivityRatio (for WATER and CO2EQ), InputActivityRatio, VariableCost, coming from IRENA (2021) "Innovation Outlook: Renewable Methanol" <https://www.irena.org/publications/2021/Jan/Innovation-Outlook-Renewable-Methanol>
 
 ## Adding Maritime transport using Methanol (C1MHMRF00)
-Adding one technology (C1MHMRF00) using Methanol (C1_S_MOH) as fuel
+Adding one technology (C1MHMRF00) using Methanol (C1_S_MOH) as fuel,
 - Data sources:
     - IRENA (2021) "Innovation Outlook: Renewable Methanol" <https://www.irena.org/publications/2021/Jan/Innovation-Outlook-Renewable-Methanol>
     - Lundgren and Wachsmann (2014) "The potential of methanol as a competiitve marine fuel" <https://odr.chalmers.se/items/25e40178-c48e-441e-ade5-f66f81dd5fd1>
 
 ## Adding Steel industry using hydrogen (STEHGPLANT)
-Adding one technology (STEHGPLANT) using hydrogen (C1_S_HDG) as fuel input to produce steel:
+Adding one technology (STEHGPLANT) using hydrogen (C1_S_HDG) as fuel input to produce steel.
 - Data sources:
     - Shahabuddin et al. (2023) "Decarbonisation and hydrogen integration of steel industries: Recent development, challenges and technoeconomic analysis" <https://www.sciencedirect.com/science/article/pii/S0959652623005498#bib5>
     - HYBRIT project:
@@ -56,7 +56,7 @@ Adding one technology (STEHGPLANT) using hydrogen (C1_S_HDG) as fuel input to pr
         - HYBRIT (2017) "Summary of findings from HYBRIT Pre-Feasibility Study 2016–2017" <https://www.hybritdevelopment.se/en/media/hybrit-brochure-english/>
 
 ## Adding Aluminium recycling (ALURECYCLE) and Aluminium industry (ALURCPLANT) using recycled aluminium (RCALU)
-Adding one technology (ALURECYCLE) to produce recycled aluminium (RCALU)
+Adding one technology (ALURECYCLE) to produce recycled aluminium (RCALU).
 Adding one technology to represent sustainable aluminium industry (ALURCPLANT) using recycled aluminium (RCALU) as fuel input to produce aluminium.
 - Data sources for ALURECYCLE:
     - International Aluminium Institute (2020) "Aluminium Recycling Factsheet" <https://international-aluminium.org/resource/aluminium-recycling-fact-sheet/>
@@ -68,3 +68,8 @@ Adding one technology to represent sustainable aluminium industry (ALURCPLANT) u
     - IEA (2023) "Aluminium, Technology deployment" <https://www.iea.org/energy-system/industry/aluminium>
     - IEA ETSAP (2012) "Aluminium Production" <https://iea-etsap.org/E-TechDS/PDF/I10_AlProduction_ER_March2012_Final%20GSOK.pdf>
 
+## Adding low-carbon Cement industry with CS (CEMPLANTCS)
+Adding a low-carbon Cement industry option [tech: CEMPLANTCS] using carbon capture and storage to lower industry-related CO2EQ emissions.
+- Data sources:
+    - Roussanaly et al. (2017) "Techno-economic Analysis of MEA CO2 Capture from a Cement Kiln – Impact of Steam Supply Scenario" <https://doi.org/10.1016/j.egypro.2017.03.1761>
+    - IEA (2023) "Cement, Innovation" <https://www.iea.org/energy-system/industry/cement>
