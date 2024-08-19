@@ -19,6 +19,7 @@ Sources:
 - IEA (2022) "CCUS around the world in 2021, DAC1" <https://www.iea.org/reports/ccus-around-the-world-in-2021/dac-1>
 - IEA (2021) "Direct Air Capture" <https://www.iea.org/reports/direct-air-capture>
 - Realmonte et al. (2019) "An inter-model assessment of the role of direct air capture in deep mitigation pathways" <https://doi.org/10.1038/s41467-019-10842-5>
+- Danish Energy Agency (2024) "Technology Data for Carbon Capture, Transport and Storage" <https://ens.dk/en/our-services/technology-catalogues/technology-data-carbon-capture-transport-and-storage>
 
 ## GHG Emissions constraint (CO2EQ)
 - AnnualEmissionLimit: equal the GLUCOSE Baseline trajectory (high-value, increasing over modelling period) for the period 2010-2020 
