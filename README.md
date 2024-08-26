@@ -57,4 +57,4 @@ Place datapackage(s) in the folder `input_data`. Each datapackage should be plac
 
 ## Licensing
 
-- Data is released under the terms of a [CC-BY 4.0 License Agreement](https://creativecommons.org/licenses/by/4.0/legalcode).
+- The GLUCOSE data is released under the terms of a [CC-BY 4.0 License Agreement](https://creativecommons.org/licenses/by/4.0/legalcode).
