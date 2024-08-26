@@ -83,7 +83,6 @@ if __name__ == "__main__":
     model = sol_gurobi(lp_path, env, log_path, threads)
     # model = sol_gurobi(lp_path, env, 'test.log', 2)
     dic_duals = get_duals(model)
-    # print(dic_duals)
     write_duals(dic_duals, dual_path, scenario)
     # dic_duals = get_duals(model)
     # write_duals(dic_duals, 'dual.csv')
