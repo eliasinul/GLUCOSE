@@ -19,6 +19,42 @@ The Global Least-cost User-friendly CLEWs Open Source Exploratory model
 
 To enhance the transparency and accessibility of the model data and results, both the `input_data.txt` files and the related `results_file.txt` files can be converted into different file formats usign the [**otoole** Python package](https://otoole.readthedocs.io/en/latest/), which provides a command-line interface for users of OSeMOSYS.
 
+## Using the snakemake workflow to run OSeMOSYS models
+This workflow allows to run one or multiple scenarios for a model built in OSeMOSYS, using the Python package otoole and the solver GUROBI. 
+1. Starting from an OSeMOSYS datapackage, the workflow uses otoole to generate an OSeMOSYS input data file in .txt
+2. Each scenario is then solved using the Gurobi solver.
+    a. if of interest, the workflow can extract dual values for multiple constraints in the model.
+3. The solution file generated in Gurobi (.sol) is then converted using otoole to a set of .csv result files.
+
+### Installation
+Create a new environment called `snakemake`, where to install snakemake using conda, using this commands:
+
+```bash
+conda install -c conda-forge mamba
+mamba create -c bioconda -c conda-forge -n snakemake snakemake-minimal
+```
+
+### Adding new scenarios
+Place datapackage(s) in the folder `input_data`. Each datapackage should be placed in a specific folder named after the scenario, e.g. `Baseline`.
+
+### Running the workflow
+1. ***Optional***: To retrieve dual values from your model you need to edit the following:
+    - edit the list of `constraints` in the file `scripts/workflow/run.py`, by unhashing lines 77, 85-86
+    - edit the file `snakefile`, by unshashing line 63
+2. Open terminal or command prompt and change to the directory of the snakefile.
+3. Activate the conda environment `snakemake`.
+    ```bash
+    conda activate snakemake
+    ```
+5. ***Optional***: Perform a dry run to test snakemake with the command: 
+    ```bash
+    snakemake -n
+    ```
+5. Start the scenario runs via the workflow, using the following command:
+    ```bash
+    snakemake --cores <number of cores to be used> --use-conda
+    ```
+
 ## Licensing
 
 - Data is released under the terms of a [CC-BY 4.0 License Agreement](https://creativecommons.org/licenses/by/4.0/legalcode).
