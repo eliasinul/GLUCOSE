@@ -6,27 +6,33 @@ dp_files = pd.read_csv('config/dp_files.txt')
 scenario_path = os.path.join("input_data")
 SCENARIOS = [x.name for x in os.scandir(scenario_path) if x.is_dir()]
 
-SCENARIOS = ['GLUCOSE']
+SCENARIOS = ['GLUCOSE_noDA2CS']
 
 rule all:
     input:
-        expand("results/{scen}/results_csv", scen=SCENARIOS)
+        expand("results/{scen}/results_csv", scen=SCENARIOS),
+        expand("input_data/{scen}/data_csv", scen=SCENARIOS)
 
-rule convert_dp:
-    message: "Converting csv input data to .txt for {wildcards.scen}"
+rule convert_df:
+    message: "Converting .txt input data to csv for {wildcards.scen}"
     input:
         other = expand("input_data/{{scen}}/data_csv/{files}", scen=SCENARIOS, files=dp_files),
         dp_path = "input_data/{scen}/data_csv"
+        # df_path = "input_data/{scen}/{scen}.txt"
     output:
-        df_path = "working_directory/{scen}.txt"
+        df_path = "input_data/{scen}/{scen}.txt",
+        # dp_path = "input_data/{scen}/data_csv"
+        # dfe_path = "input_data/{scen}/{scen}.xlsx"
     log:
         "working_directory/otoole_{scen}.log"
     conda:
         "envs/otoole_env.yaml"
     shell:
         "otoole convert csv datafile {input.dp_path} {output.df_path}"
+        # "otoole convert datafile csv {input.df_path} {output.dp_path}"
+        # "otoole convert datafile excel {input.df_path} {output.dfe_path}"
 
-# rule pre_process:
+# rule pre_process:data_
 #     message: "Pre-processing of {input}"
 #     input:
 #         "working_directory/{scen}.txt"
@@ -41,7 +47,7 @@ rule convert_dp:
 rule build_lp:
     message: "Building the .lp file"  #for {input}"
     input:
-        df_path = "working_directory/{scen}.txt"
+        df_path = "input_data/{scen}/{scen}.txt"
     params:
         model_path = "model/osemosys_fast.txt",
     output:
@@ -77,7 +83,7 @@ rule convert_sol:
     input:
         sol_path = "working_directory/{scen}.sol",
         # dp_path = "input_data/{scen}/data"
-        df_path = "working_directory/{scen}.txt"
+        df_path = "input_data/{scen}/{scen}.txt"
     # params:
         # res_folder = "results/{scen}/results_csv",
         # config = "config/config.yaml"
