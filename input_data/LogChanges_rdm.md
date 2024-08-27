@@ -93,3 +93,60 @@ Adding Pulp&Paper industry process [tech: PAPELPLANT] using electrified heat [fu
 Adding Petrochemical industry process [tech: PETBELPLANT] using electrified heat [fuel: C1_F_HEA_IHP] from industrial heat pump to supply 80% of the heat input, allowing for using a higher share of renewable primary energy resources compared to traditional Petrochemical industry.
 - Data sources:
     - IEA (2023) "Chemicals, Innovation" <https://www.iea.org/energy-system/industry/chemicals>
+
+
+# Model Testing, August 2024
+## GLUCOSE_noDA2CS
+Action: 
+- Removing technology `C1ENDA2CS`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+Effects: no significant difference, more accentuated *bump* in results for 2020-2025, indicating a disruptive change in model behaviour.
+
+# Potential issues with Constraints
+## CapacityOfOneTechnologyUnit[r,t,y]
+No defined constraint in GLUCOSE.
+
+## TotalAnnualMaxCapacity[r,t,y]
+- Constraint defined for hydrogen, methanol, DAC: constrained to 0 till 2020, then slowly allowed to come in.
+
+Potential issues:
+- Constraint defined for renewable technologies.
+
+## TotalAnnualMinCapacity[r,t,y]
+- Constraint defined for biomass technologies.
+- Constrained defined for hydrogen technologies to reflect IEA historical and estimated data.
+
+## TotalAnnualMaxCapacityInvestment[r,t,y]
+Potential issues:
+- Constraint defined for renewables [techs: C1SOC1P00, C1SOTHF00, C1SOV1P00, C1SOV2P00, C1WDOFP00, C1WDONP00] seem lower than for other fossil fuel techs, and not reflecting potential learing curve, at least till 2025-2028.
+- Constraint for biomass, coal, and gass-to-liquid techs seems particularly high.
+- Constraint for coal, gass, and oil primary energy import are high - probably because of different capacity units.
+- Constaint for DAC tech is also significantly high
+
+## TotalAnnualMinCapacityInvestment[r,t,y]
+No defined constraint in GLUCOSE.
+
+## TotalTechnologyAnnualActivityUpperLimit[r,t,y]
+Potential issues:
+- Constraint defined for for coal, gass, and oil primary energy import [techs: C1CO00I00, C1NG00I00, C1OI00I00] till 2020
+
+## TotalTechnologyAnnualActivityLowerLimit[r,t,y]
+Constraint defined for CS technologies [techs: C1BMIGPCS, C1COSCPCS, C1NGCCPCS]
+
+Potential issues:
+- Constraint defined for fossil free steel production via hydrigen [tech: STEHGPLANT]
+- Constraint defined for recycling aluminium [tech: ALURECYCLE]
+- Constraint defined for heat pump technologies [techs: C1HPASF01, C1HPINF0I]
+- Constraint defined for solar and wind [techs: C1SOC1P00, C1SOTHF00, C1SOV1P00, C1SOV2P00, C1WDOFP00, C1WDONP00], ocean [tech: C1OCCVP00] and geothermal [techs: C1GOCVP00, C1GOHTF0] technologies: data might be old and need double chec
+
+## TotalTechnologyModelPeriodActivityUpperLimit[r,t]
+Constraint defined only for import of primary energy or materials [techs: C1CO00I00, C1NG00I00, C1OI00I00, XALUMINE, XCEMMINE, XPHOMINE, XPOTMINE, XSTEMINE].
+
+## TotalTechnologyModelPeriodActivityLowerLimit[r,t]
+No defined constraint in GLUCOSE.
+
+## AnnualEmissionLimit[r,e,y]
+Constraint defined for `CO2EQ` emissions, till 2020.
+
+## ModelPeriodEmissionLimit[r,e]
+Constraint defined for `CO2EQ` emissions.
