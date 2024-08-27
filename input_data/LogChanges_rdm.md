@@ -126,15 +126,15 @@ Potential issues:
 ## TotalAnnualMinCapacityInvestment[r,t,y]
 No defined constraint in GLUCOSE.
 
-## TotalTechnologyAnnualActivityUpperLimit[r,t,y]
+## TotalTechnologyAnnualActivityLowerLimit[r,t,y]
 Potential issues:
 - Constraint defined for for coal, gass, and oil primary energy import [techs: C1CO00I00, C1NG00I00, C1OI00I00] till 2020
 
-## TotalTechnologyAnnualActivityLowerLimit[r,t,y]
+## TotalTechnologyAnnualActivityUpperLimit[r,t,y]
 Constraint defined for CS technologies [techs: C1BMIGPCS, C1COSCPCS, C1NGCCPCS]
 
 Potential issues:
-- Constraint defined for fossil free steel production via hydrigen [tech: STEHGPLANT]
+- Constraint defined for fossil free steel production via hydrogen [tech: STEHGPLANT]
 - Constraint defined for recycling aluminium [tech: ALURECYCLE]
 - Constraint defined for heat pump technologies [techs: C1HPASF01, C1HPINF0I]
 - Constraint defined for solar and wind [techs: C1SOC1P00, C1SOTHF00, C1SOV1P00, C1SOV2P00, C1WDOFP00, C1WDONP00], ocean [tech: C1OCCVP00] and geothermal [techs: C1GOCVP00, C1GOHTF0] technologies: data might be old and need double chec
@@ -150,3 +150,80 @@ Constraint defined for `CO2EQ` emissions, till 2020.
 
 ## ModelPeriodEmissionLimit[r,e]
 Constraint defined for `CO2EQ` emissions.
+
+# Potential issues with other input Parameters
+## ResidualCapacity[r,t,y]
+- Lots of residual capacity for industry technologies [techs: ALUPLANT, CEMPLANT, FERTPLANT, PAPPLANT, PETAPLANT, PETBPLANT, STEPLANT] till up to 2040.
+- Lots of residual capacity for fossil fuel power technologies [techs: C1COCHP00, C1COIGP00, C1COSCP00, C1HFGCP00, C1NGCCP00, C1NGCCPCH, C1NGGCP00, C1NGGCPCH, C1OIRFP00].
+
+## CapitalCost[r,t,y]
+- Costs of CO, NG and BM technologies with or without CCS [techs: C1BMCHP00, C1BMIGPCS, C1COSCP00, C1COSCPCS, C1NGCCP00, C1NGCCPCS] are in the same order of magnitude, with at times CCS technologies being cheaper than non-CCS ones.
+- Possibly, Direct Air Capture technology [techs: C1ENDA1CS] is too low.
+
+# Model Testing, August 2024
+## GLUCOSE_noDA2CS
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+Effects: no significant difference, more accentuated *bump* in results for 2020-2025, indicating a disruptive change in model behaviour.
+
+## GLUCOSE_noDA2CS_2
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+- **Removing TotalTechnologyAnnualActivityUpperLimit for `C1HPINF0I` from 2025 onwards.**
+
+Effects: no significant difference.
+
+## GLUCOSE_noDA2CS_3
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `C1HPINF0I` from 2025 onwards.
+- **Removing TotalTechnologyAnnualActivityUpperLimit for `ALURECYCLE` from 2025 onwards.**
+
+Effects: no significant difference.
+
+## GLUCOSE_noDA2CS_4
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `C1HPINF0I` from 2025 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `ALURECYCLE` from 2025 onwards.
+- **Reducing ResidualCapacity for `ALUPLANT`, `CEMPLANT`, `FERTPLANT`, `PAPPLANT`, `PETAPLANT`, `PETBPLANT`, `STEPLANT` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.**
+- **Reducing ResidualCapacity for `C1COCHP00`, `C1COIGP00`, `C1COSCP00`, `C1HFGCP00`, `C1NGCCP00`, `C1NGCCPCH`, `C1NGGCP00`, `C1NGGCPCH`, `C1OIRFP00` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.**
+
+Effects: no significant difference.
+
+## GLUCOSE_noDA2CS_5
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `C1HPINF0I` from 2025 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `ALURECYCLE` from 2025 onwards.
+- Reducing ResidualCapacity for `ALUPLANT`, `CEMPLANT`, `FERTPLANT`, `PAPPLANT`, `PETAPLANT`, `PETBPLANT`, `STEPLANT` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Reducing ResidualCapacity for `C1COCHP00`, `C1COIGP00`, `C1COSCP00`, `C1HFGCP00`, `C1NGCCP00`, `C1NGCCPCH`, `C1NGGCP00`, `C1NGGCPCH`, `C1OIRFP00` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- **Remove completely TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`.**
+
+Effects: DAC technology coming in later (from 2030), but overall historical trends in years 2010-2020 are off.
+
+## GLUCOSE_noDA2CS_6
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `C1HPINF0I` from 2025 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `ALURECYCLE` from 2025 onwards.
+- Reducing ResidualCapacity for `ALUPLANT`, `CEMPLANT`, `FERTPLANT`, `PAPPLANT`, `PETAPLANT`, `PETBPLANT`, `STEPLANT` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Reducing ResidualCapacity for `C1COCHP00`, `C1COIGP00`, `C1COSCP00`, `C1HFGCP00`, `C1NGCCP00`, `C1NGCCPCH`, `C1NGGCP00`, `C1NGGCPCH`, `C1OIRFP00` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Remove completely TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`.
+- **Increase CapitalCost for `C1BMCHP00`, `C1BMIGPCS`, `C1COSCP00`, `C1COSCPCS`, `C1NGCCP00`, `C1NGCCPCS` by 1000 compared to non-CCS alternatives.**
+- **Increase CapitalCost for `C1ENDA1CS` by 500.**
+
+Effects: DAC technologies delayed till 2034, coal almost entirely disappearing from the power sector (but overall historical trends in years 2010-2020 are off), CCS still coming in massively in 2020, no ALURCPLANT or STEHGPLANT used.
+
