@@ -315,8 +315,56 @@ Action:
 - Reintroduce TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`, to calibrate historical data.
 - **Implementing historical capacities for renewable as TotalAnnualMinCapacity, years 2014-2021.**
     - **Source: [IRENA, 2024. Renewable Energy Statistics 2024](https://www.irena.org/Publications/2024/Jul/Renewable-energy-statistics-2024)**
+- **Adjusting TotalAnnualMaxCapacity and TotalAnnualMaxCapacityInvestment as to avoid conflicts with the new constraint.**
 
-Effects: infeasible solution, due to overlapping constraints for C1HYMIP00. There is a constraint on TotalAnnualMaxCapacity that is lower than my historical data used to define the TotalAnnualMinCapacity. Need to double check constaints on Renewables: TotalAnnualMaxCapacity, TotalAnnualMaxCapacityInvestment, and TotalTechnologyAnnualActivityUpperLimit.
+Effects: it is noticeable that the TotalAnnualMinCapacity constraint comes in only in 2014, hence the first 4 years of the modelling period are a bit *bumpy*; in addition, there is a strong change in primary energy mix in the switch between 2020 and 2021.
+
+## GLUCOSE_noDA2CS_12
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `C1HPINF0I` from 2025 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `ALURECYCLE` from 2025 onwards.
+- Reducing ResidualCapacity for `ALUPLANT`, `CEMPLANT`, `FERTPLANT`, `PAPPLANT`, `PETAPLANT`, `PETBPLANT`, `STEPLANT` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Reducing ResidualCapacity for `C1COCHP00`, `C1COIGP00`, `C1COSCP00`, `C1HFGCP00`, `C1NGCCP00`, `C1NGCCPCH`, `C1NGGCP00`, `C1NGGCPCH`, `C1OIRFP00` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Remove completely TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`.
+- Increase CapitalCost for `C1BMCHP00`, `C1BMIGPCS`, `C1COSCP00`, `C1COSCPCS`, `C1NGCCP00`, `C1NGCCPCS` by 1000 compared to non-CCS alternatives.
+- Increase CapitalCost for `C1ENDA1CS` by 500.
+- Mistake found in unit conversion for InputActivityRatio of energy for `ALURECYCLE` - values need to be divided by 1000.
+- Issue found with FixedCost for `STEHGPLANT`, as thye are way higher than for `STEPLANT` (might be because in the HYBRIT project the hydrogen production is part of the steel making process, while in GLUCOSE it is modelled as separate technology) - removing FixedCost for `STEHGPLANT` to see how the model reacts.
+- Implementing backstop CapitalCosts of 99999 for `C1ENDA1CS` - to test if alternative low-carbon technologies come more strongly into the system.
+- Reintroduce TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`, to calibrate historical data.
+- Implementing historical capacities for renewable as TotalAnnualMinCapacity, years 2014-2021.
+    - Source: [IRENA, 2024. Renewable Energy Statistics 2024](https://www.irena.org/Publications/2024/Jul/Renewable-energy-statistics-2024)
+- Adjusting TotalAnnualMaxCapacity and TotalAnnualMaxCapacityInvestment as to avoid conflicts with the new constraint.
+- **Implementing historical capacities for fossil fuels as TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` years 2010-2035.**
+
+Effects: sudden shift in energy mix is distributing over 2020-2025, but there are still issues with e.g. NG penetration till 2025.
+
+## GLUCOSE_noDA2CS_13
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `C1HPINF0I` from 2025 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `ALURECYCLE` from 2025 onwards.
+- Reducing ResidualCapacity for `ALUPLANT`, `CEMPLANT`, `FERTPLANT`, `PAPPLANT`, `PETAPLANT`, `PETBPLANT`, `STEPLANT` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Reducing ResidualCapacity for `C1COCHP00`, `C1COIGP00`, `C1COSCP00`, `C1HFGCP00`, `C1NGCCP00`, `C1NGCCPCH`, `C1NGGCP00`, `C1NGGCPCH`, `C1OIRFP00` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Remove completely TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`.
+- Increase CapitalCost for `C1BMCHP00`, `C1BMIGPCS`, `C1COSCP00`, `C1COSCPCS`, `C1NGCCP00`, `C1NGCCPCS` by 1000 compared to non-CCS alternatives.
+- Increase CapitalCost for `C1ENDA1CS` by 500.
+- Mistake found in unit conversion for InputActivityRatio of energy for `ALURECYCLE` - values need to be divided by 1000.
+- Issue found with FixedCost for `STEHGPLANT`, as thye are way higher than for `STEPLANT` (might be because in the HYBRIT project the hydrogen production is part of the steel making process, while in GLUCOSE it is modelled as separate technology) - removing FixedCost for `STEHGPLANT` to see how the model reacts.
+- Implementing backstop CapitalCosts of 99999 for `C1ENDA1CS` - to test if alternative low-carbon technologies come more strongly into the system.
+- Reintroduce TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`, to calibrate historical data.
+- Implementing historical capacities for renewable as TotalAnnualMinCapacity, years 2014-2021.
+    - Source: [IRENA, 2024. Renewable Energy Statistics 2024](https://www.irena.org/Publications/2024/Jul/Renewable-energy-statistics-2024)
+- Adjusting TotalAnnualMaxCapacity and TotalAnnualMaxCapacityInvestment as to avoid conflicts with the new constraint.
+- Implementing historical capacities for fossil fuels as TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` years 2010-2035.
+- Impolementing historical capacities for fossil fuels, particularly natural gas between 2015-2021: using 
+
+Effects: 
 
 
 # To Try
