@@ -260,7 +260,87 @@ Action:
 
 Effects: (finally!) also STEHGPLANT is now coming into the system from 2031, albeit not massively. As a result, also the DAC technology comes in later - only from 2036 onwards. 
 
+## GLUCOSE_noDA2CS_9
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `C1HPINF0I` from 2025 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `ALURECYCLE` from 2025 onwards.
+- Reducing ResidualCapacity for `ALUPLANT`, `CEMPLANT`, `FERTPLANT`, `PAPPLANT`, `PETAPLANT`, `PETBPLANT`, `STEPLANT` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Reducing ResidualCapacity for `C1COCHP00`, `C1COIGP00`, `C1COSCP00`, `C1HFGCP00`, `C1NGCCP00`, `C1NGCCPCH`, `C1NGGCP00`, `C1NGGCPCH`, `C1OIRFP00` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Remove completely TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`.
+- Increase CapitalCost for `C1BMCHP00`, `C1BMIGPCS`, `C1COSCP00`, `C1COSCPCS`, `C1NGCCP00`, `C1NGCCPCS` by 1000 compared to non-CCS alternatives.
+- Increase CapitalCost for `C1ENDA1CS` by 500.
+- Mistake found in unit conversion for InputActivityRatio of energy for `ALURECYCLE` - values need to be divided by 1000.
+- Issue found with FixedCost for `STEHGPLANT`, as thye are way higher than for `STEPLANT` (might be because in the HYBRIT project the hydrogen production is part of the steel making process, while in GLUCOSE it is modelled as separate technology) - removing FixedCost for `STEHGPLANT` to see how the model reacts.
+- **Implementing backstop CapitalCosts for `C1ENDA1CS` - to test if alternative low-carbon technologies come more strongly into the system.**
+
+Effects: strong increase of nuclear power in the system, descrease in use of DAC (which comes in only in 2046, to a max of 10 GtCO2EQ) and slower penetration of CCS technologies. Also noticeable, the forest land seems to be increased in some critical years e.g. 2022-2023. Strangely, STEHGPLANT is not used, as well as other industry technologies.
+
+## GLUCOSE_noDA2CS_10
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `C1HPINF0I` from 2025 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `ALURECYCLE` from 2025 onwards.
+- Reducing ResidualCapacity for `ALUPLANT`, `CEMPLANT`, `FERTPLANT`, `PAPPLANT`, `PETAPLANT`, `PETBPLANT`, `STEPLANT` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Reducing ResidualCapacity for `C1COCHP00`, `C1COIGP00`, `C1COSCP00`, `C1HFGCP00`, `C1NGCCP00`, `C1NGCCPCH`, `C1NGGCP00`, `C1NGGCPCH`, `C1OIRFP00` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Remove completely TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`.
+- Increase CapitalCost for `C1BMCHP00`, `C1BMIGPCS`, `C1COSCP00`, `C1COSCPCS`, `C1NGCCP00`, `C1NGCCPCS` by 1000 compared to non-CCS alternatives.
+- Increase CapitalCost for `C1ENDA1CS` by 500.
+- Mistake found in unit conversion for InputActivityRatio of energy for `ALURECYCLE` - values need to be divided by 1000.
+- Issue found with FixedCost for `STEHGPLANT`, as thye are way higher than for `STEPLANT` (might be because in the HYBRIT project the hydrogen production is part of the steel making process, while in GLUCOSE it is modelled as separate technology) - removing FixedCost for `STEHGPLANT` to see how the model reacts.
+- Implementing backstop CapitalCosts of 99999 for `C1ENDA1CS` - to test if alternative low-carbon technologies come more strongly into the system.
+- **Reintroduce TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`, to calibrate historical data.**
+
+Effects: DAC coming in from 2035 onwards, again. STEHGPLANT coming in more massively from 2043 onwards. CO2EQ emission trajectory looks quite *bumpy*. 
+
+## GLUCOSE_noDA2CS_11
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `C1HPINF0I` from 2025 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `ALURECYCLE` from 2025 onwards.
+- Reducing ResidualCapacity for `ALUPLANT`, `CEMPLANT`, `FERTPLANT`, `PAPPLANT`, `PETAPLANT`, `PETBPLANT`, `STEPLANT` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Reducing ResidualCapacity for `C1COCHP00`, `C1COIGP00`, `C1COSCP00`, `C1HFGCP00`, `C1NGCCP00`, `C1NGCCPCH`, `C1NGGCP00`, `C1NGGCPCH`, `C1OIRFP00` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Remove completely TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`.
+- Increase CapitalCost for `C1BMCHP00`, `C1BMIGPCS`, `C1COSCP00`, `C1COSCPCS`, `C1NGCCP00`, `C1NGCCPCS` by 1000 compared to non-CCS alternatives.
+- Increase CapitalCost for `C1ENDA1CS` by 500.
+- Mistake found in unit conversion for InputActivityRatio of energy for `ALURECYCLE` - values need to be divided by 1000.
+- Issue found with FixedCost for `STEHGPLANT`, as thye are way higher than for `STEPLANT` (might be because in the HYBRIT project the hydrogen production is part of the steel making process, while in GLUCOSE it is modelled as separate technology) - removing FixedCost for `STEHGPLANT` to see how the model reacts.
+- Implementing backstop CapitalCosts of 99999 for `C1ENDA1CS` - to test if alternative low-carbon technologies come more strongly into the system.
+- Reintroduce TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`, to calibrate historical data.
+- **Implementing historical capacities for renewable as TotalAnnualMinCapacity, years 2014-2021.**
+    - **Source: [IRENA, 2024. Renewable Energy Statistics 2024](https://www.irena.org/Publications/2024/Jul/Renewable-energy-statistics-2024)**
+
+Effects: infeasible solution, due to overlapping constraints for C1HYMIP00. There is a constraint on TotalAnnualMaxCapacity that is lower than my historical data used to define the TotalAnnualMinCapacity. Need to double check constaints on Renewables: TotalAnnualMaxCapacity, TotalAnnualMaxCapacityInvestment, and TotalTechnologyAnnualActivityUpperLimit.
+
+
 # To Try
 - Check costs and Input/Output units for ALURCPLANT vs ALUPLANT, and STEHGPLANT vs STEPLANT?
 - Remove further the ResidualCapacity for industries?
 - Increase further costs for DAC technology [tech: C1ENDA1CS]?
+
+## meeting with Will
+- try to delay ccs and see how the model reacts
+- try also with very high ccs costs?
+- ccs behaviour - check if fuels are forced in
+- check dual values for ccs techs and biomass resource
+check constraints on biomass resources?
+
+- add dual values for constraint on lower limit of activity
+- try testing a very high cost for DAC (as for backstop) and check dual values then and see how it reacts
+- recive investment max cap constraints for renewables
+- work on historic trends - need to match results till 2022
+- once historic data are in, check if the dual values shows constraints in remewable investments
+- release constraints in heat pumps for residential
+
+
+### NB
+- for SD - relax as many constraint as possible, and then use constraints as uncertainty parameters
+- explore wide range of scenarios - then constraint the solution space based on the data uncertainty that I have from the literature (learning curve, growth constraints)
+
+- check what input fuel takes hydrogen production - check what the emission intensity is based on the input fuel to generate hydrogen
