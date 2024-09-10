@@ -58,6 +58,7 @@ def process_data(folder_in, folder_out):
     PrimEN_tech = (energy_tech.loc[(energy_tech.VALUE.str[6:7] == 'P')|(energy_tech.VALUE.str[6:7] == '0')]).VALUE.unique()
     SecEN_tech = (energy_tech.loc[(energy_tech.VALUE.str[6:7] == 'T')]).VALUE.unique()
     FinalEN_tech = (energy_tech.loc[(energy_tech.VALUE.str[6:7] == 'F')]).VALUE.unique()
+    Transport_tech = (energy_tech.loc[(energy_tech.VALUE.str[4:6] == 'RD')|(energy_tech.VALUE.str[4:6] == 'RL')|(energy_tech.VALUE.str[4:6] == 'AV')|(energy_tech.VALUE.str[4:6] == 'MR')]).VALUE.unique()
 
     ## land and food fuels
     land_fuel = (FUEL.loc[(FUEL.VALUE.str[0:1] == 'L')]).VALUE.unique()
@@ -525,6 +526,68 @@ def process_data(folder_in, folder_out):
     my_path = Path(f'{folder_out}', 'results_processed', f'{output}'+'.p') 
     with my_path.open('wb') as fp:
         pickle.dump(DAC_emission_diff, fp)
+
+    #%% calculate Transport energy demand: UseByTechnology for transport technologies
+    Transport_EnUse = pd.DataFrame(index=YEAR.VALUE, columns=(list(Transport_tech))).fillna(0)
+
+    results_file = Path(f'{folder_out}', 'results_csv', 'UseByTechnology.csv')
+
+    if not os.path.exists(results_file):
+        pass
+    else:
+        UseByTechnology = pd.read_csv(results_file)        
+        for year in YEAR.VALUE:
+            for tech in Transport_tech:
+                transp_temp = UseByTechnology[(UseByTechnology['TECHNOLOGY'] == tech)&(UseByTechnology['YEAR'] == year)]
+                #print(transp_temp)
+                Transport_EnUse.loc[year,tech] = transp_temp['VALUE'].sum()
+
+
+    # save GLUCOSE results: Transport_EnergyDemand
+    output = 'GLUCOSE_Transport_EnergyDemand'
+
+    # fp = open(f'{folder_out}', 'results_processed', f'{output}'+'.p', 'wb')
+    my_path = Path(f'{folder_out}', 'results_processed', f'{output}'+'.p') 
+    with my_path.open('wb') as fp:
+        pickle.dump(Transport_EnUse, fp)
+
+    # save to csv file
+    my_path_csv = Path(f'{folder_out}', 'results_processed', f'{output}'+'.csv') 
+    Transport_EnUse.astype('float64')
+    Transport_EnUse.to_csv(my_path_csv, index=True)
+
+    #%% calculate Transport energy demand: UseByTechnology for transport technologies
+    Industry_EnergyUse = {}
+
+    for t in industry_tech:
+        csv_file = Path(f'{folder_out}', 'results_csv', 'UseByTechnology.csv')
+        if not os.path.exists(csv_file):
+            pass
+        else:
+            EnergyUse = pd.read_csv(csv_file)
+            fuels= EnergyUse[(EnergyUse['TECHNOLOGY'] == t)].FUEL.unique()
+            Industry_EnergyUse[t] = pd.DataFrame(index=YEAR.VALUE, columns=(list(fuels))).fillna(0)
+            for f in fuels:
+                for year in YEAR.VALUE:
+                    EnergyUse_temp = EnergyUse[(EnergyUse['TECHNOLOGY'] == t)&(EnergyUse['FUEL'] == f)&(UseByTechnology['YEAR'] == year)]
+                    Industry_EnergyUse[t].loc[year,f] = EnergyUse_temp['VALUE'].sum()
+
+
+    # save GLUCOSE results: Transport_EnergyDemand
+    output = 'GLUCOSE_Industry_EnergyDemand'
+
+    # fp = open(f'{folder_out}', 'results_processed', f'{output}'+'.p', 'wb')
+    my_path = Path(f'{folder_out}', 'results_processed', f'{output}'+'.p') 
+    with my_path.open('wb') as fp:
+        pickle.dump(Industry_EnergyUse, fp)
+
+
+    # save to csv file
+    for t in Industry_EnergyUse:
+        my_path_csv = Path(f'{folder_out}', 'results_processed', 'GLUCOSE_IndustryEnergyDemand_'+f'{t}'+'.csv')
+        Industry_EnergyUse[t].astype('float64')
+        Industry_EnergyUse[t].to_csv(my_path_csv, index=True)
+
 
     return
 

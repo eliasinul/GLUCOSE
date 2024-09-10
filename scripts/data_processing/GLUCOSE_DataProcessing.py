@@ -15,8 +15,8 @@ import pickle
 # #read in the path to the folder of interest
 
 
-folder_in = 'input_data/GLUCOSE_noDA2CS_9'
-folder_out = 'results/GLUCOSE_noDA2CS_9'
+folder_in = 'input_data/GLUCOSE_noDA2CS_14_2'
+folder_out = 'results/GLUCOSE_noDA2CS_14_2'
 
 myPath = Path('..','..',f'{folder_out}', 'results_csv')
 tifCounter = len(glob.glob1(myPath,"*.ilp"))
@@ -57,6 +57,7 @@ RE_tech = (energy_tech.loc[(energy_tech.VALUE.str[2:4] == 'SO')|(energy_tech.VAL
 PrimEN_tech = (energy_tech.loc[(energy_tech.VALUE.str[6:7] == 'P')|(energy_tech.VALUE.str[6:7] == '0')]).VALUE.unique()
 SecEN_tech = (energy_tech.loc[(energy_tech.VALUE.str[6:7] == 'T')]).VALUE.unique()
 FinalEN_tech = (energy_tech.loc[(energy_tech.VALUE.str[6:7] == 'F')]).VALUE.unique()
+Transport_tech = (energy_tech.loc[(energy_tech.VALUE.str[4:6] == 'RD')|(energy_tech.VALUE.str[4:6] == 'RL')|(energy_tech.VALUE.str[4:6] == 'AV')|(energy_tech.VALUE.str[4:6] == 'MR')]).VALUE.unique()
 
 ## land and food fuels
 land_fuel = (FUEL.loc[(FUEL.VALUE.str[0:1] == 'L')]).VALUE.unique()
@@ -521,6 +522,30 @@ output = 'GLUCOSE_Emissions_DAC_diff'
 my_path = Path('..', '..', f'{folder_out}', 'results_processed', f'{output}'+'.p') 
 with my_path.open('wb') as fp:
     pickle.dump(DAC_emission_diff, fp)
+
+#%% calculate Transport energy demand: UseByTechnology for transport technologies
+Transport_EnUse = pd.DataFrame(index=YEAR.VALUE, columns=(list(Transport_tech))).fillna(0)
+
+results_file = Path('..', '..', f'{folder_out}', 'results_csv', 'UseByTechnology.csv')
+
+if not os.path.exists(results_file):
+    pass
+else:
+    UseByTechnology = pd.read_csv(results_file)        
+    for year in YEAR.VALUE:
+        for tech in Transport_tech:
+            transp_temp = UseByTechnology[(UseByTechnology['TECHNOLOGY'] == tech)&(UseByTechnology['YEAR'] == year)]
+            print(transp_temp)
+            Transport_EnUse.loc[year,tech] = transp_temp['VALUE'].sum()
+
+
+# save GLUCOSE results: Transport_EnergyDemand
+output = 'GLUCOSE_Transport_EnergyDemand'
+
+#fp = open('..', '..', f'{folder_out}', 'results_processed', f'{output}'+'.p', 'wb')
+my_path = Path('..', '..', f'{folder_out}', 'results_processed', f'{output}'+'.p') 
+with my_path.open('wb') as fp:
+    pickle.dump(Transport_EnUse, fp)
 
 #%%
 # if __name__ == "__main__":
