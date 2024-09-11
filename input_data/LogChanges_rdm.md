@@ -847,13 +847,6 @@ Effects: results look better, coal TPES is more in line with historical data.
 
 
 
-- **Adding dummy agricultural demand to make it match with historical total final energy consumption for agriculture in 2010-2020, then keep it constant till 2050.**
-    - **Source: IEA (2024), "Extended world energy balances", IEA World Energy Statistics and Balances (database). <https://doi.org/10.1787/data-00513-en> (accessed on 04 September 2024)**
-- **Adding historical technologies to set fossil fuels production to match historical data in years 2010-2020. One tech per fuel, defined as average Input/OutputActivityRatio and cost of the existing techs in GLUCOSE.**
-
-
-
-
 
 # To Try
 - Check costs and Input/Output units for ALURCPLANT vs ALUPLANT, and STEHGPLANT vs STEPLANT?
