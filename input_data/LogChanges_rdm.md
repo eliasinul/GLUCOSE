@@ -803,7 +803,7 @@ Action:
 
 Effects: slightly better, but still too little coal and significant NG and oil. Also, too low TPES total.
 
-## GLUCOSE_noDA2CS_14_9
+## *GLUCOSE_noDA2CS_14_9*
 Action: 
 - Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
 - Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
@@ -843,8 +843,49 @@ Action:
 - **Adding back TotalTechnology AnnualActivityLowerLimit for primary coal, to to match IEA TPES (minus 15%) in years 2010-2020 with values reducing to zero in years 2021-2025.**
 
 Effects: results look better, coal TPES is more in line with historical data. 
+### *Final test: sent to Will for approval.*
 
+## GLUCOSE_noDA2CS_14_10
+Action: 
+- Removing technology `C1ENDA2CS` and fuel `C1_F_HEA_Ir`.
+- Removing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `STEHGPLANT` from 2020 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `C1HPINF0I` from 2025 onwards.
+- Removing TotalTechnologyAnnualActivityUpperLimit for `ALURECYCLE` from 2025 onwards.
+- Reducing ResidualCapacity for `ALUPLANT`, `CEMPLANT`, `FERTPLANT`, `PAPPLANT`, `PETAPLANT`, `PETBPLANT`, `STEPLANT` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Reducing ResidualCapacity for `C1COCHP00`, `C1COIGP00`, `C1COSCP00`, `C1HFGCP00`, `C1NGCCP00`, `C1NGCCPCH`, `C1NGGCP00`, `C1NGGCPCH`, `C1OIRFP00` from 2025 onwards, by reducing the capacity by 30% each year till 2030 and then going to zero.
+- Remove completely TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`.
+- Increase CapitalCost for `C1BMCHP00`, `C1BMIGPCS`, `C1COSCP00`, `C1COSCPCS`, `C1NGCCP00`, `C1NGCCPCS` by 1000 compared to non-CCS alternatives.
+- Increase CapitalCost for `C1ENDA1CS` by 500.
+- Mistake found in unit conversion for InputActivityRatio of energy for `ALURECYCLE` - values need to be divided by 1000.
+- Issue found with FixedCost for `STEHGPLANT`, as thye are way higher than for `STEPLANT` (might be because in the HYBRIT project the hydrogen production is part of the steel making process, while in GLUCOSE it is modelled as separate technology) - removing FixedCost for `STEHGPLANT` to see how the model reacts.
+- Implementing backstop CapitalCosts of 99999 for `C1ENDA1CS` - to test if alternative low-carbon technologies come more strongly into the system.
+- Reintroduce TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00`, to calibrate historical data.
+- Implementing historical capacities for renewable as TotalAnnualMinCapacity, years 2014-2021.
+    - Source: [IRENA, 2024. Renewable Energy Statistics 2024.](https://www.irena.org/Publications/2024/Jul/Renewable-energy-statistics-2024)
+- Adjusting TotalAnnualMaxCapacity and TotalAnnualMaxCapacityInvestment as to avoid conflicts with the new constraint.
+- Reintroducing TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` years 2010-2021, plus reducing the TotalTechnologyAnnualActivityLowerLimit by 20% each year between 2022-2035.
+- Implementing historical capacities for natural gas between 2015-2021: updating TotalTechnologyAnnualActivityLowerLimit for `C1NG00I00` between 2010-2035.
+    - Source: [Our World In Data, 2024. Gas consumption by region.](https://ourworldindata.org/grapher/natural-gas-consumption-by-region#sources-and-processing)
+- Reducing the TotalTechnologyAnnualActivityLowerLimit for `C1CO00I00`, `C1NG00I00`, `C1OI00I00` by 30% each year between 2022-2030, then removing it from 2030-2050.
+- Adding TotalAnnualMaxCapacity for `C1NULWP00` for years 2011-2021 based on historical installed capacity data, to prevent the model from overinvesting in nuclear in the historical period; removing TotalAnnualMaxCapacityInvestment for `C1NULWP00` for years 2010-2021 to avoid overconstraining the model.
+    - Source: [EMBER, 2024. Yearly electricity data.](https://ember-climate.org/data-catalogue/yearly-electricity-data/)
+- Remove AnnualEmissionLimit for CO2EQ, to relax emissions constraint in years 2010-2021.
+- Increase ModelPeriodEmissionLimit based on higher historical emissions between 2010-2020 - I do consider 20% lower emissions, due to GLUCOSE not fully representing all the sector demands globally.
+- For Aviation (C1LFAVF00) remove TotalTechnolgyAnnualActivitUpperLimit and implement the same values of the TotalTechnolgyAnnualActivitUpperLimit (minus 5%) as TotalTechnolgyAnnualActivitLowerLimit, to ensure that in the production of the final C1_F_MOT fuel it is correctly represented the share of maritime and aviation demand.
+- Implementing new InputActivityRatio for `C1LFAVF00, C1_P_LFO`, `C1LFRLF00, C1_P_LFO`, `C1HFMRF00, C1_P_HFO`, `C1BFRLF00, C1_P_LFO`, and `C1LFRDF00, C1_P_LFO` between 2010-2020, backcalculated from historical data on total final energy consuption for transport; then slowing phasing in original InputActivityRatio between 2020-2025.
+    - Source: IEA (2024), "Extended world energy balances", IEA World Energy Statistics and Balances (database). <https://doi.org/10.1787/data-00513-en> (accessed on 04 September 2024)
+- Increasing ModelPeriodEmissionsLimit to 923.23 Gt  CO2EQ, to match historical data between 2010-2020. Cause I am now accounting for higher transport fuel demands.
+- Remove all the TotalAnnualMinCapacity for Renewables, move them to ResidualCapacity and lower them by 10% betwee 2014-2021. Then lower ResidiualCapacity by 25% per year till 2025, then go to zero. Data as from IRENA historical data.
+- Lower TotalTechnologyAnnualActivityLowerLimit by 10% each year for primary fossil fuels imports between 2010-2030.
+- Remove TotalTechnologyAnnualActivityLowerLimit for primary fossil fuels imports.
+- Introduce ResidualCapacity and TotalAnnualMaxCapacity for Geothermal elc (`C1GOCVP00`), and ResidualCapacity, TotalAnnualMaxCapacity, and TotalTechnology AnnualActivityUpperLimit for Geothermal heat (`C1GOHTF03`) to match IRENA historical installed capacity and IEA historical TPES (minus 10%) between 2014-2021. 
+- Introduce TotalTechnology AnnualActivityUpperLimit for primary gas and oil import, to match IEA TPES (minus 10%) between 2010-2020.
+- Adjust TotalMaxCapacity for hydro, to avoid over production of TPES from it in historical years (2010-2020).
+- Adding back TotalTechnology AnnualActivityLowerLimit for primary coal, to to match IEA TPES (minus 15%) in years 2010-2020 with values reducing to zero in years 2021-2025.
+- **Adding AnnualEmissionLimit for CO2EQ between 2010-2020 to match historical data (minus 20%, to account for the missing demand representation), and changing the ModelPeriodEmissionLimit accordingly.**
 
+Effects: gas is reducing in TPES to reduce emissions, plus oil and coal stay in the system till 2050.
 
 
 
