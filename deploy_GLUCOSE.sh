@@ -66,12 +66,15 @@ cd "$GLUCOSE_dir" || exit
 ## Copy the GLUCOSE scenario of reference to the glucose_esom_gsa/congif folder
 echo Copy the GLUCOSE scenario of reference to the glucose_esom_gsa/congif folder
 # cd input_data
-# cp -r /Users/agnesebeltramo/Documents/GitHub_repo/KTH-dESA/GLUCOSE/input_data/GLUCOSE_noDA2CS_14_9/.   /Users/agnesebeltramo/Documents/GitHub_repo/AgnesBelt/glucose_esom_gsa/congif/model_input/GLUCOSE_data_csv/
+# cp -r /Users/agnesebeltramo/Documents/GitHub_repo/KTH-dESA/GLUCOSE/input_data/GLUCOSE_noDA2CS_14_9   /Users/agnesebeltramo/Documents/GitHub_repo/AgnesBelt/glucose_esom_gsa/congif/model_input
 
-SOURCE="/input_data"
-DESTINATION="/Users/agnesebeltramo/Documents/GitHub_repo/AgnesBelt/glucose_esom_gsa/congif"
+SOURCE="input_data"
+DESTINATION="/Users/agnesebeltramo/Documents/GitHub_repo/AgnesBelt/glucose_esom_gsa/config"
 
-cp -r "$SOURCE/GLUCOSE_noDA2CS_14_9/"*  "$DESTINATION/model_input/"
+echo "${DESTINATION}/model_input/"
+
+# cp -r "$SOURCE/GLUCOSE_noDA2CS_14_9"*  "$DESTINATION/model_input/"
+cp -r "${SOURCE}/GLUCOSE_noDA2CS_14_9/"*  "${DESTINATION}/model_input"
 
 ## Execute the glucose_esom_gsa workflow
 echo Execute the glucose_esom_gsa workflow 

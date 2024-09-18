@@ -6,12 +6,14 @@ dp_files = pd.read_csv('config/dp_files.txt')
 scenario_path = os.path.join("input_data")
 SCENARIOS = [x.name for x in os.scandir(scenario_path) if x.is_dir()]
 
-SCENARIOS = ['GLUCOSE_noDA2CS']
+SCENARIOS = ['GLUCOSE_noDA2CS_14_10'] # 'GLUCOSE_noDA2CS', 'GLUCOSE_noDA2CS_2', 'GLUCOSE_noDA2CS_3', 'GLUCOSE_noDA2CS_4', 'GLUCOSE_noDA2CS_5', 'GLUCOSE_noDA2CS_6', 'GLUCOSE_noDA2CS_7', 'GLUCOSE_noDA2CS_8', 
 
 rule all:
     input:
+        expand("input_data/{scen}/data_csv", scen=SCENARIOS),
         expand("results/{scen}/results_csv", scen=SCENARIOS),
-        expand("input_data/{scen}/data_csv", scen=SCENARIOS)
+        expand("results/{scen}/results_processed", scen=SCENARIOS),
+        expand("results/{scen}/img", scen=SCENARIOS)
 
 rule convert_df:
     message: "Converting .txt input data to csv for {wildcards.scen}"
@@ -94,6 +96,38 @@ rule convert_sol:
     shell:
         "otoole results gurobi csv {input.sol_path} {output} --input_datafile {input.df_path}"
 
+rule process_results:
+    message: "Process results"
+    input:
+        "input_data/{scen}",
+        "results/{scen}/results_csv/"
+    output:
+        directory("results/{scen}/results_processed/")
+    conda:
+        "envs/prim_rdm_env.yaml"
+    log:
+        "working_directory/{scen}_processing.log",
+    threads: 32
+    resources:
+        mem_mb=62000
+    script:
+        "scripts/data_processing/GLUCOSE_DataProcessing_workflow.py"
+
+rule visualise_results:
+    message: "Visualise results from {input}"
+    input:
+        "results/{scen}/results_processed/"
+    output:
+        directory("results/{scen}/img/")
+    conda:
+        "envs/prim_rdm_env.yaml"
+    log:
+        "working_directory/{scen}_resviz.log",
+    threads: 32
+    resources:
+        mem_mb=62000
+    script:
+        "scripts/results_viz/GLUCOSE_resviz_workflow.py"
 
 rule clean:
     shell:
