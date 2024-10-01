@@ -792,6 +792,9 @@ Effects: gas is reducing in TPES to reduce emissions, plus oil and coal stay in 
 
 
 
+
+
+-------
 # To Try
 - Check costs and Input/Output units for ALURCPLANT vs ALUPLANT, and STEHGPLANT vs STEPLANT?
 - Remove further the ResidualCapacity for industries?
