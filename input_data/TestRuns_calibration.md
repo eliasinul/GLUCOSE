@@ -786,7 +786,7 @@ Action:
 - Introduce TotalTechnology AnnualActivityUpperLimit for primary gas and oil import, to match IEA TPES (minus 10%) between 2010-2020.
 - Adjust TotalMaxCapacity for hydro, to avoid over production of TPES from it in historical years (2010-2020).
 - Adding back TotalTechnology AnnualActivityLowerLimit for primary coal, to to match IEA TPES (minus 15%) in years 2010-2020 with values reducing to zero in years 2021-2025.
-- **Adding AnnualEmissionLimit for CO2EQ between 2010-2020 to match historical data (minus 20%, to account for the missing demand representation), and changing the ModelPeriodEmissionLimit accordingly.**
+- 
 
 Effects: gas is reducing in TPES to reduce emissions, plus oil and coal stay in the system till 2050.
 
