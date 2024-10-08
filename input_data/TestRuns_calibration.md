@@ -791,7 +791,7 @@ Action:
     - modifying ResidualCapacity and TotalAnnualMaxCapacity for hydro technologies - to avoid the model to over-invest on hydro
     - adding TotalAnnualMinCapacity for all renewables and for a selection of coal, oil, and gas power plant technologies (`C1COCHP00`, `C1COHTF03`, `C1COSCP00`, `C1HFGCP00`, `C1LFBRFH1`, `C1NGCCP00`, `C1NGGCP00`) - to push the model to use fossil fuels in the historical period.
     
-    **For more detailed numbers and information on the new constraints added, see GLUCOSE_HistoricalData.xlsx [RDM_calibration]**
+    **For more detailed numbers and information on the new constraints added, see GLUCOSE_HistoricalData.xlsx [***RDM_calibration*** sheet]**
 
 
 
