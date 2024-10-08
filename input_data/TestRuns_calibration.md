@@ -782,13 +782,15 @@ Action:
 - Remove all the TotalAnnualMinCapacity for Renewables, move them to ResidualCapacity and lower them by 10% betwee 2014-2021. Then lower ResidiualCapacity by 25% per year till 2025, then go to zero. Data as from IRENA historical data.
 - Lower TotalTechnologyAnnualActivityLowerLimit by 10% each year for primary fossil fuels imports between 2010-2030.
 - Remove TotalTechnologyAnnualActivityLowerLimit for primary fossil fuels imports.
-- Introduce ResidualCapacity and TotalAnnualMaxCapacity for Geothermal elc (`C1GOCVP00`), and ResidualCapacity, TotalAnnualMaxCapacity, and TotalTechnology AnnualActivityUpperLimit for Geothermal heat (`C1GOHTF03`) to match IRENA historical installed capacity and IEA historical TPES (minus 10%) between 2014-2021. 
-- Introduce TotalTechnology AnnualActivityUpperLimit for primary gas and oil import, to match IEA TPES (minus 10%) between 2010-2020.
+- Introduce ResidualCapacity and TotalAnnualMaxCapacity for Geothermal elc (`C1GOCVP00`), and ResidualCapacity, TotalAnnualMaxCapacity, and TotalTechnologyAnnualActivityUpperLimit for Geothermal heat (`C1GOHTF03`) to match IRENA historical installed capacity and IEA historical TPES (minus 10%) between 2014-2021. 
+- Introduce TotalTechnologyAnnualActivityUpperLimit for primary gas and oil import, to match IEA TPES (minus 10%) between 2010-2020.
 - Adjust TotalMaxCapacity for hydro, to avoid over production of TPES from it in historical years (2010-2020).
-- Adding back TotalTechnology AnnualActivityLowerLimit for primary coal, to to match IEA TPES (minus 15%) in years 2010-2020 with values reducing to zero in years 2021-2025.
-- 
+- Adding back TotalTechnologyAnnualActivityLowerLimit for primary coal, to to match IEA TPES (minus 15%) in years 2010-2020 with values reducing to zero in years 2021-2025.
+- **Adding lower constraints to fix the model historical period - so that the RDM run won't affect years 2010-2020.**
+    - adding TotalTechnologyAnnualActivityLowerLimit for `C1NG00I00` and `C1OI00I00`
+    - modifying ResidualCapacity and TotalAnnualMaxCapacity for hydro technologies - to avoid the model to over-invest on hydro
+    - adding TotalAnnualMinCapacity for all renewables and for a selection of coal, oil, and gas power plant technologies (`C1COCHP00`, `C1COHTF03`, `C1COSCP00`, `C1HFGCP00`, `C1LFBRFH1`, `C1NGCCP00`, `C1NGGCP00`) - to push the model to use fossil fuels in the historical period.
 
-Effects: gas is reducing in TPES to reduce emissions, plus oil and coal stay in the system till 2050.
 
 
 
