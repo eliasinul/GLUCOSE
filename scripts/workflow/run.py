@@ -47,7 +47,7 @@ def get_duals(model):
 
 def write_duals(dict_duals: dict, path: str, scen: str):
     path_res = os.sep.join(path.split('/')[:-1]+['%(scen)s_duals'% {'scen': scen}])
-    os.mkdir(path_res)
+    os.makedirs(path_res, exist_ok=True) # to handle existing directory
     for df in dict_duals:
         dict_duals[df].to_csv('%(path)s/Dual_%(constr)s.csv' % {'path': path_res, 'constr': df}, index=False)
     return
